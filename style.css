@@ -343,6 +343,10 @@ body.light-mode .theme-toggle:hover {
   width: 100%;
 }
 
+.mobile-action-btn {
+  display: none !important;
+}
+
 .mobile-menu-btn {
   display: none;
   font-size: 1.5rem;
@@ -719,6 +723,39 @@ footer {
 
   .nav-links.active {
     right: 0;
+  }
+
+  .header-actions .btn-signin,
+  .header-actions .btn-join {
+    display: none;
+  }
+
+  .mobile-action-btn {
+    display: block !important;
+    text-align: center;
+    padding: 0.8rem !important;
+    border-radius: 8px;
+    margin-top: 1rem;
+    background: rgba(255, 255, 255, 0.05);
+  }
+
+  body.light-mode .mobile-action-btn {
+    background: rgba(0, 0, 0, 0.05);
+  }
+
+  .mobile-action-btn.primary {
+    background: linear-gradient(135deg, #06b6d4, #2dd4bf);
+    color: #000 !important;
+    font-weight: 700;
+  }
+
+  header {
+    width: 95%;
+    padding: 0.5rem 1rem;
+  }
+
+  .logo-text {
+    font-size: 1.1rem;
   }
 
   .mobile-menu-btn {
