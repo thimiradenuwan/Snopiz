@@ -14,15 +14,27 @@
 
     <!-- Header Navigation -->
     <header>
-        <div class="container nav-container">
-            <a href="#" class="logo text-gradient">Snopiz.</a>
+        <div class="nav-container">
+            <a href="index.html" class="logo-wrapper">
+                <span class="logo-circle">S</span>
+                <span class="logo-text">Snopiz<span style="color: var(--accent-secondary);">.com</span></span>
+            </a>
             
             <nav class="nav-links">
-                <a href="#home">Home</a>
-                <a href="#features">Features</a>
-                <a href="#products">Products</a>
+                <a href="#about">About</a>
                 <a href="#services">Services</a>
+                <a href="#pricing">Pricing</a>
+                <a href="#faq">FAQ</a>
+                <a href="#contact">Contact Us</a>
             </nav>
+
+            <div class="header-actions">
+                <button class="theme-toggle" id="theme-toggle" aria-label="Toggle Theme">
+                    <i class="fas fa-moon"></i>
+                </button>
+                <a href="#" class="btn-signin">Sign In</a>
+                <a href="#" class="btn-join">Register</a>
+            </div>
 
             <button class="mobile-menu-btn" aria-label="Toggle Menu">
                 <i class="fas fa-bars"></i>
@@ -81,66 +93,47 @@
             </div>
 
             <div class="products-grid">
-                <!-- VPN Subscriptions -->
+                <!-- V2Ray Vpn Service -->
                 <div class="product-card glass-panel vpn">
                     <div class="product-image">
-                        <i class="fas fa-network-wired"></i>
+                        <i class="fas fa-shield-alt"></i>
                     </div>
                     <div class="product-info">
                         <span class="product-category">Security</span>
-                        <h3 class="product-title">Premium VPN Subscriptions</h3>
-                        <p class="product-desc">Stay anonymous and secure online with top-tier VPN services. Bypass geo-restrictions instantly.</p>
-                        <div class="product-footer">
-                            <div class="product-price">From $4<span>/mo</span></div>
-                            <button class="btn btn-primary btn-sm">View Plans</button>
+                        <h3 class="product-title">V2Ray Vpn Service</h3>
+                        <p class="product-desc">High-speed, untraceable, and secure V2Ray proxies for unrestricted internet access.</p>
+                        <div class="product-footer" style="justify-content: center;">
+                            <a href="vpn-plans.html" class="btn btn-primary btn-sm">View Plans</a>
                         </div>
                     </div>
                 </div>
 
-                <!-- Software Licenses -->
+                <!-- Premium Softwares -->
                 <div class="product-card glass-panel software">
                     <div class="product-image">
-                        <i class="fas fa-laptop-code"></i>
+                        <i class="fas fa-box-open"></i>
                     </div>
                     <div class="product-info">
                         <span class="product-category">Productivity</span>
-                        <h3 class="product-title">Software Licenses</h3>
-                        <p class="product-desc">Lifetime and annual licenses for industry-standard design, coding, and office suites.</p>
-                        <div class="product-footer">
-                            <div class="product-price">From $29<span>/yr</span></div>
+                        <h3 class="product-title">Premium Softwares</h3>
+                        <p class="product-desc">Top-tier commercial software tools, design suites, and development environments.</p>
+                        <div class="product-footer" style="justify-content: center;">
                             <button class="btn btn-primary btn-sm">Browse</button>
                         </div>
                     </div>
                 </div>
 
-                <!-- Activation Keys -->
+                <!-- Cheats For Games -->
                 <div class="product-card glass-panel keys">
                     <div class="product-image">
-                        <i class="fas fa-key"></i>
+                        <i class="fas fa-gamepad"></i>
                     </div>
                     <div class="product-info">
-                        <span class="product-category">OS & Gaming</span>
-                        <h3 class="product-title">Activation Keys</h3>
-                        <p class="product-desc">Genuine CD keys for major operating systems, antivirus software, and popular video games.</p>
-                        <div class="product-footer">
-                            <div class="product-price">From $12<span>/ea</span></div>
-                            <button class="btn btn-primary btn-sm">Shop Keys</button>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Digital Subscriptions -->
-                <div class="product-card glass-panel subs">
-                    <div class="product-image">
-                        <i class="fas fa-play-circle"></i>
-                    </div>
-                    <div class="product-info">
-                        <span class="product-category">Entertainment</span>
-                        <h3 class="product-title">Digital Subscriptions</h3>
-                        <p class="product-desc">Access premium streaming, music, and cloud storage services at discounted rates.</p>
-                        <div class="product-footer">
-                            <div class="product-price">From $8<span>/mo</span></div>
-                            <button class="btn btn-primary btn-sm">Subscribe</button>
+                        <span class="product-category">Gaming</span>
+                        <h3 class="product-title">Cheats For Games</h3>
+                        <p class="product-desc">Undetected, premium tools and mods for competitive gaming edges.</p>
+                        <div class="product-footer" style="justify-content: center;">
+                            <button class="btn btn-primary btn-sm">View Cheats</button>
                         </div>
                     </div>
                 </div>
@@ -163,7 +156,7 @@
     <footer>
         <div class="footer-grid">
             <div class="footer-col">
-                <a href="#" class="logo text-gradient" style="font-size: 1.5rem; margin-bottom: 1rem; display: inline-block;">Snopiz.</a>
+                <a href="#" class="logo text-gradient" style="font-size: 1.5rem; margin-bottom: 1rem; display: inline-block;">Snopiz</a>
                 <p>Your trusted marketplace for premium digital goods. Fast, secure, and reliable.</p>
             </div>
             <div class="footer-col">
@@ -194,7 +187,7 @@
             </div>
         </div>
         <div class="footer-bottom">
-            <p>&copy; 2026 Snopiz. All rights reserved.</p>
+            <p>&copy; 2026 Snopiz All rights reserved.</p>
             <div class="social-links" style="display: flex; gap: 1rem;">
                 <a href="#"><i class="fab fa-twitter"></i></a>
                 <a href="#"><i class="fab fa-discord"></i></a>

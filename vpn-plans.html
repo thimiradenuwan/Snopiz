@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Snopiz VPN Plans">
+    <title>Snoopy VPN Plans | Snopiz</title>
+    <!-- CSS -->
+    <link rel="stylesheet" href="style.css">
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Pricing Plans Section Specific Styles */
+        .pricing-section {
+            padding: 100px 2rem 6rem;
+            min-height: 100vh;
+            background: linear-gradient(135deg, rgba(6, 182, 212, 0.1), rgba(139, 92, 246, 0.05));
+        }
+
+        .pricing-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem;
+            justify-content: center;
+            margin-bottom: 2.5rem;
+        }
+
+        .pricing-grid.top-row {
+            max-width: 1050px;
+            margin-inline: auto;
+        }
+
+        .pricing-grid.bottom-row {
+            max-width: 700px;
+            margin-inline: auto;
+        }
+
+        .plan-card {
+            flex: 1 1 300px;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            padding: 0;
+            border-radius: 16px;
+            border: 2px solid transparent;
+            transition: transform var(--transition-normal), border-color var(--transition-normal);
+        }
+
+        .plan-card:hover {
+            transform: translateY(-8px);
+        }
+
+        .plan-card {
+            background: rgba(20, 20, 22, 0.5);
+        }
+        body.light-mode .plan-card {
+            background: rgba(255, 255, 255, 0.7);
+        }
+
+        .plan-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(135deg, rgba(255,255,255,0.03), transparent);
+            opacity: 0;
+            transition: opacity var(--transition-normal);
+            z-index: 0;
+        }
+        
+        .plan-card:hover::before { 
+            opacity: 1; 
+        }
+
+        .plan-header {
+            padding: 2rem 1.5rem;
+            text-align: center;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            font-family: var(--font-display);
+            position: relative;
+            z-index: 1;
+            background: linear-gradient(to bottom, rgba(255,255,255,0.02), transparent);
+        }
+        body.light-mode .plan-header {
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+            background: linear-gradient(to bottom, rgba(0,0,0,0.02), transparent);
+        }
+
+        .plan-header h3 {
+            font-size: 1.3rem;
+            margin: 0;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-weight: 700;
+        }
+
+        .plan-features {
+            padding: 2rem;
+            color: var(--text-muted);
+            flex-grow: 1;
+            position: relative;
+            z-index: 1;
+            background: transparent;
+        }
+
+        .plan-features li {
+            margin-bottom: 1.2rem;
+            font-size: 0.95rem;
+            font-weight: 400;
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            line-height: 1.5;
+        }
+
+        .plan-features li i {
+            font-size: 0.6rem;
+            margin-top: 0.45rem;
+        }
+
+        /* Specific Colors matching main theme */
+        .plan-card.cyan .plan-header h3 { color: var(--accent-secondary); text-shadow: 0 0 15px rgba(6, 182, 212, 0.4); }
+        .plan-card.cyan .plan-features li i { color: var(--accent-secondary); text-shadow: 0 0 10px rgba(6, 182, 212, 0.8); }
+        .plan-card.cyan:hover { border-color: var(--accent-secondary); box-shadow: 0 10px 40px rgba(6, 182, 212, 0.15); transform: translateY(-8px); }
+        
+        .plan-card.orange .plan-header h3 { color: var(--accent-primary); text-shadow: 0 0 15px rgba(139, 92, 246, 0.4); }
+        .plan-card.orange .plan-features li i { color: var(--accent-primary); text-shadow: 0 0 10px rgba(139, 92, 246, 0.8); }
+        .plan-card.orange:hover { border-color: var(--accent-primary); box-shadow: 0 10px 40px rgba(139, 92, 246, 0.15); transform: translateY(-8px); }
+    </style>
+</head>
+<body>
+
+    <!-- Header Navigation -->
+    <header>
+        <div class="nav-container">
+            <a href="index.html" class="logo-wrapper">
+                <span class="logo-circle">S</span>
+                <span class="logo-text">Snopiz<span style="color: var(--accent-secondary);">.com</span></span>
+            </a>
+            
+            <nav class="nav-links">
+                <a href="index.html#about">About</a>
+                <a href="index.html#services">Services</a>
+                <a href="index.html#pricing">Pricing</a>
+                <a href="index.html#faq">FAQ</a>
+                <a href="index.html#contact">Contact Us</a>
+            </nav>
+
+            <div class="header-actions">
+                <button class="theme-toggle" id="theme-toggle" aria-label="Toggle Theme">
+                    <i class="fas fa-moon"></i>
+                </button>
+                <a href="#" class="btn-signin">Sign In</a>
+                <a href="#" class="btn-join">Register</a>
+            </div>
+
+            <button class="mobile-menu-btn" aria-label="Toggle Menu">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </header>
+
+    <!-- Pricing Section -->
+    <section class="pricing-section">
+        <div class="container">
+            <div class="section-header" style="margin-top: 40px; margin-bottom: 3rem;">
+                <h2>SNOOPY <br><span class="text-gradient">VPN PLANS</span></h2>
+            </div>
+            
+            <!-- Top Row (3 Plans) -->
+            <div class="pricing-grid top-row">
+                <!-- Standard -->
+                <div class="plan-card glass-panel cyan">
+                    <div class="plan-header">
+                        <h3>STANDARD &ndash; 399 LKR</h3>
+                    </div>
+                    <ul class="plan-features">
+                        <li><i class="fas fa-circle"></i> 500GB Usage</li>
+                        <li><i class="fas fa-circle"></i> 2 Devices Access</li>
+                        <li><i class="fas fa-circle"></i> 30 Days Valid</li>
+                        <li><i class="fas fa-circle"></i> Normal Connection Speed</li>
+                        <li><i class="fas fa-circle"></i> Ideal For Daily Browsing & Social Media</li>
+                    </ul>
+                    <div style="padding: 0 2rem 2rem; position: relative; z-index: 1; text-align: center;">
+                        <a href="#payment-options" class="btn btn-primary" style="width: 100%;">Buy Now</a>
+                    </div>
+                </div>
+                
+                <!-- VIP -->
+                <div class="plan-card glass-panel cyan">
+                    <div class="plan-header">
+                        <h3>VIP &ndash; 699 LKR</h3>
+                    </div>
+                    <ul class="plan-features">
+                        <li><i class="fas fa-circle"></i> 800GB Usage</li>
+                        <li><i class="fas fa-circle"></i> 5 Devices Access</li>
+                        <li><i class="fas fa-circle"></i> 30 Days Valid</li>
+                        <li><i class="fas fa-circle"></i> Stable Connection Speed</li>
+                        <li><i class="fas fa-circle"></i> Ideal For Downloaders</li>
+                    </ul>
+                    <div style="padding: 0 2rem 2rem; position: relative; z-index: 1; text-align: center;">
+                        <a href="#payment-options" class="btn btn-primary" style="width: 100%;">Buy Now</a>
+                    </div>
+                </div>
+                
+                <!-- MVP -->
+                <div class="plan-card glass-panel cyan">
+                    <div class="plan-header">
+                        <h3>MVP &ndash; 949 LKR</h3>
+                    </div>
+                    <ul class="plan-features">
+                        <li><i class="fas fa-circle"></i> Unlimited Usage</li>
+                        <li><i class="fas fa-circle"></i> Unlimited Devices Access</li>
+                        <li><i class="fas fa-circle"></i> 30 Days Valid</li>
+                        <li><i class="fas fa-circle"></i> High Stable & Low Ping</li>
+                        <li><i class="fas fa-circle"></i> Ideal For Gamers</li>
+                    </ul>
+                    <div style="padding: 0 2rem 2rem; position: relative; z-index: 1; text-align: center;">
+                        <a href="#payment-options" class="btn btn-primary" style="width: 100%;">Buy Now</a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Bottom Row (2 Plans) -->
+            <div class="pricing-grid bottom-row">
+                <!-- 3 Month -->
+                <div class="plan-card glass-panel orange">
+                    <div class="plan-header">
+                        <h3>03 MONTH &ndash; 1599 LKR</h3>
+                    </div>
+                    <ul class="plan-features">
+                        <li><i class="fas fa-circle"></i> Unlimited Usage</li>
+                        <li><i class="fas fa-circle"></i> Unlimited Devices</li>
+                        <li><i class="fas fa-circle"></i> 03 Months Valid</li>
+                        <li><i class="fas fa-circle"></i> VIP Plan Functions Included</li>
+                    </ul>
+                    <div style="padding: 0 2rem 2rem; position: relative; z-index: 1; text-align: center;">
+                        <a href="#payment-options" class="btn btn-primary" style="width: 100%;">Buy Now</a>
+                    </div>
+                </div>
+                
+                <!-- 1 Year -->
+                <div class="plan-card glass-panel orange">
+                    <div class="plan-header">
+                        <h3>01 YEAR - 4499 LKR</h3>
+                    </div>
+                    <ul class="plan-features">
+                        <li><i class="fas fa-circle"></i> Unlimited Usage</li>
+                        <li><i class="fas fa-circle"></i> Unlimited Devices</li>
+                        <li><i class="fas fa-circle"></i> 12 Months Valid</li>
+                        <li><i class="fas fa-circle"></i> MVP Plan Functions Included</li>
+                    </ul>
+                    <div style="padding: 0 2rem 2rem; position: relative; z-index: 1; text-align: center;">
+                        <a href="#payment-options" class="btn btn-primary" style="width: 100%;">Buy Now</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Payment Options Section -->
+    <section id="payment-options" style="padding: 4rem 2rem 6rem; background: var(--bg-dark);">
+        <div class="container" style="max-width: 800px;">
+            <div class="section-header" style="margin-bottom: 3rem;">
+                <h2>Payment <span class="text-gradient">Options</span></h2>
+                <p>Complete your purchase using our secure payment methods.</p>
+            </div>
+            
+            <div class="glass-panel" style="padding: 3rem; text-align: center; border-color: var(--accent-secondary);">
+                <div style="font-size: 3rem; color: var(--accent-secondary); margin-bottom: 1.5rem;">
+                    <i class="fas fa-university"></i>
+                </div>
+                <h3 style="font-size: 1.8rem; margin-bottom: 1rem; font-family: var(--font-display);">Bank Transfer</h3>
+                <p style="color: var(--text-muted); margin-bottom: 2rem;">Please transfer the total amount for your selected plan to the following bank account. Once transferred, send us the receipt via WhatsApp to activate your VPN.</p>
+                
+                <div style="background: rgba(0,0,0,0.3); padding: 1.5rem; border-radius: 12px; border: 1px solid rgba(255,255,255,0.05); text-align: left; max-width: 400px; margin: 0 auto 2rem;">
+                    <p style="margin-bottom: 0.5rem;"><strong style="color: var(--text-main);">Bank Name:</strong> Commercial Bank</p>
+                    <p style="margin-bottom: 0.5rem;"><strong style="color: var(--text-main);">Account Name:</strong> Snopiz Digital</p>
+                    <p style="margin-bottom: 0.5rem;"><strong style="color: var(--text-main);">Account Number:</strong> 1234 5678 9012</p>
+                    <p style="margin-bottom: 0;"><strong style="color: var(--text-main);">Branch:</strong> Colombo</p>
+                </div>
+
+                <a href="#" class="btn btn-primary" style="background: #25D366; box-shadow: 0 4px 15px rgba(37, 211, 102, 0.4);">
+                    <i class="fab fa-whatsapp" style="margin-right: 0.5rem;"></i> Send Receipt
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-bottom">
+            <p>&copy; 2026 Snopiz All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="script.js"></script>
+</body>
+</html>
