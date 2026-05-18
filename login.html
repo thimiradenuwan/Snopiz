@@ -43,7 +43,9 @@
                     </svg>
                     Continue with Google
                 </button>
-
+                <a href="index.html" class="btn btn-block" style="background:transparent; border:1px solid rgba(255,255,255,0.15); color:rgba(255,255,255,0.6); margin-top:1rem; text-align:center; display:block; text-decoration:none;">
+                    Back to Home
+                </a>
             </div>
         </div>
     </section>
@@ -126,17 +128,23 @@
                             ${user.displayName || 'User'}
                         </h3>
                         <p style="font-size:0.85rem; opacity:0.6; margin:0 0 1.5rem;">${user.email}</p>
-                        <a href="index.html" class="btn btn-primary btn-block" style="display:block; text-align:center; margin-bottom:0.75rem;">
+                        <button id="dash-btn" class="btn btn-primary btn-block" style="display:block; text-align:center; margin-bottom:0.75rem; width:100%;">
                             Go to Dashboard
-                        </a>
+                        </button>
                         <button id="sign-out-btn" class="btn btn-block"
                             style="background:transparent; border:1px solid rgba(255,255,255,0.15); color:rgba(255,255,255,0.6); cursor:pointer;">
                             Sign Out
                         </button>
                     </div>`;
 
+                document.getElementById('dash-btn').addEventListener('click', () => {
+                    window.open('index.html', '_blank');
+                });
+
                 document.getElementById('sign-out-btn').addEventListener('click', () => {
-                    signOut(auth);
+                    signOut(auth).then(() => {
+                        window.location.reload();
+                    });
                 });
 
                 // Also update the card header
