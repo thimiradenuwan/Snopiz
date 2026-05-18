@@ -1,15 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Snopiz - Your premium destination for digital products including VPNs, Software Licenses, and Activation Keys.">
+    <meta name="description"
+        content="Snopiz - Your premium destination for digital products including VPNs, Software Licenses, and Activation Keys.">
     <title>Snopiz | Premium Digital Storefront</title>
     <!-- CSS -->
     <link rel="stylesheet" href="style.css">
     <!-- FontAwesome for Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
+
 <body>
 
     <!-- Header Navigation -->
@@ -19,28 +22,33 @@
                 <span class="logo-circle">S</span>
                 <span class="logo-text">Snopiz<span style="color: var(--accent-secondary);">.com</span></span>
             </a>
-            
+
             <nav class="nav-links">
-                <a href="#about">About</a>
+                <a href="#home">Home</a>
+                <a href="#products">Products</a>
                 <a href="#services">Services</a>
-                <a href="#pricing">Pricing</a>
-                <a href="#faq">FAQ</a>
+                <a href="#features">Why Choose</a>
                 <a href="#contact">Contact Us</a>
-                <a href="#" class="mobile-action-btn">Sign In</a>
-                <a href="#" class="mobile-action-btn primary">Register</a>
+                <a href="login.html" class="mobile-action-btn">Sign In</a>
+                <a href="login.html" class="mobile-action-btn primary">Register</a>
             </nav>
 
             <div class="header-actions">
+                <button class="theme-toggle" id="theme-toggle-desktop" aria-label="Toggle Theme">
+                    <i class="fas fa-moon"></i>
+                </button>
+                <a href="login.html" class="btn-signin">Sign In</a>
+                <a href="login.html" class="btn-join">Register</a>
+            </div>
+
+            <div class="mobile-right">
                 <button class="theme-toggle" id="theme-toggle" aria-label="Toggle Theme">
                     <i class="fas fa-moon"></i>
                 </button>
-                <a href="#" class="btn-signin">Sign In</a>
-                <a href="#" class="btn-join">Register</a>
+                <button class="mobile-menu-btn" aria-label="Toggle Menu">
+                    <i class="fas fa-bars"></i>
+                </button>
             </div>
-
-            <button class="mobile-menu-btn" aria-label="Toggle Menu">
-                <i class="fas fa-bars"></i>
-            </button>
         </div>
     </header>
 
@@ -49,38 +57,11 @@
         <div class="container">
             <div class="hero-content">
                 <h1>Unlock the Ultimate <br><span class="text-gradient">Digital Experience</span></h1>
-                <p>Instant access to premium VPNs, lifetime software licenses, activation keys, and exclusive digital subscriptions—all in one secure place.</p>
+                <p>Instant access to premium VPNs, lifetime software licenses, activation keys, and exclusive digital
+                    subscriptions—all in one secure place.</p>
                 <div class="hero-btns">
-                    <a href="#products" class="btn btn-primary">Browse Catalog</a>
+                    <a href="login.html" class="btn btn-primary">Go To Dashboard</a>
                     <a href="#features" class="btn btn-secondary">Learn More</a>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Features Section -->
-    <section id="features" class="features">
-        <div class="container">
-            <div class="section-header">
-                <h2>Why Choose <span class="text-gradient">Snopiz</span>?</h2>
-                <p>We provide a seamless, secure, and instant purchasing experience for all your digital needs.</p>
-            </div>
-            
-            <div class="features-grid">
-                <div class="feature-card glass-panel">
-                    <div class="feature-icon"><i class="fas fa-bolt"></i></div>
-                    <h3>Instant Delivery</h3>
-                    <p>Get your licenses and keys delivered instantly to your inbox immediately after payment confirmation.</p>
-                </div>
-                <div class="feature-card glass-panel">
-                    <div class="feature-icon"><i class="fas fa-shield-alt"></i></div>
-                    <h3>100% Secure</h3>
-                    <p>Bank-grade encryption ensures your payments and personal data are always protected.</p>
-                </div>
-                <div class="feature-card glass-panel">
-                    <div class="feature-icon"><i class="fas fa-headset"></i></div>
-                    <h3>24/7 Support</h3>
-                    <p>Our dedicated support team is available around the clock to help you with activation or issues.</p>
                 </div>
             </div>
         </div>
@@ -90,8 +71,9 @@
     <section id="products" class="products">
         <div class="container">
             <div class="section-header">
-                <h2>Premium <span class="text-gradient">Catalog</span></h2>
-                <p>Explore our wide selection of verified digital products tailored for professionals and enthusiasts.</p>
+                <h2>Premium <span class="text-gradient">Products</span></h2>
+                <p>Explore our wide selection of verified digital products tailored for professionals and enthusiasts.
+                </p>
             </div>
 
             <div class="products-grid">
@@ -103,9 +85,10 @@
                     <div class="product-info">
                         <span class="product-category">Security</span>
                         <h3 class="product-title">V2Ray Vpn Service</h3>
-                        <p class="product-desc">High-speed, untraceable, and secure V2Ray proxies for unrestricted internet access.</p>
+                        <p class="product-desc">High-speed, untraceable, and secure V2Ray proxies for unrestricted
+                            internet access.</p>
                         <div class="product-footer" style="justify-content: center;">
-                            <a href="vpn-plans.html" class="btn btn-primary btn-sm">View Plans</a>
+                            <button class="btn btn-primary btn-sm">View Plans</button>
                         </div>
                     </div>
                 </div>
@@ -118,7 +101,8 @@
                     <div class="product-info">
                         <span class="product-category">Productivity</span>
                         <h3 class="product-title">Premium Softwares</h3>
-                        <p class="product-desc">Top-tier commercial software tools, design suites, and development environments.</p>
+                        <p class="product-desc">Top-tier commercial software tools, design suites, and development
+                            environments.</p>
                         <div class="product-footer" style="justify-content: center;">
                             <button class="btn btn-primary btn-sm">Browse</button>
                         </div>
@@ -143,13 +127,137 @@
         </div>
     </section>
 
-    <!-- Online Services (CTA) -->
-    <section id="services" class="cta">
+    <!-- Premium Services Section -->
+    <section id="services" class="services">
         <div class="container">
-            <div class="cta-box glass-panel">
-                <h2>Looking for Custom <span class="text-gradient">Online Services</span>?</h2>
-                <p>We also provide specialized online services including dedicated server hosting, custom script installations, and enterprise software deployments.</p>
-                <a href="#" class="btn btn-primary">Contact Our Team</a>
+            <div class="section-header">
+                <h2>Our Premium <span class="text-gradient">Services</span></h2>
+                <p>Discover the power of Snopiz with our comprehensive suite of digital solutions.</p>
+            </div>
+
+            <div class="services-grid">
+                <div class="service-card glass-panel">
+                    <div class="service-icon"><i class="fas fa-network-wired"></i></div>
+                    <h3>Premium V2Ray Services</h3>
+                    <p>High-speed, secure, and untraceable V2Ray proxies for unrestricted internet access.</p>
+                </div>
+                <div class="service-card glass-panel">
+                    <div class="service-icon"><i class="fas fa-server"></i></div>
+                    <h3>Dedicated Servers</h3>
+                    <p>High-performance dedicated servers optimized for maximum throughput and low latency.</p>
+                </div>
+                <div class="service-card glass-panel">
+                    <div class="service-icon"><i class="fas fa-code"></i></div>
+                    <h3>Web Development</h3>
+                    <p>Custom website design and development tailored to elevate your brand's digital presence.</p>
+                </div>
+                <div class="service-card glass-panel">
+                    <div class="service-icon"><i class="fas fa-cloud"></i></div>
+                    <h3>VPS Hosting Solutions</h3>
+                    <p>Scalable and secure Virtual Private Servers for hosting your applications and projects.</p>
+                </div>
+                <div class="service-card glass-panel">
+                    <div class="service-icon"><i class="fas fa-store"></i></div>
+                    <h3>Digital Product Store Setup</h3>
+                    <p>Complete end-to-end setup of automated digital storefronts for your business.</p>
+                </div>
+                <div class="service-card glass-panel">
+                    <div class="service-icon"><i class="fas fa-tools"></i></div>
+                    <h3>Technical Support & Maintenance</h3>
+                    <p>24/7 dedicated technical support and ongoing maintenance to keep your systems running smoothly.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="features">
+        <div class="container">
+            <div class="section-header">
+                <h2>Why Choose <span class="text-gradient">Snopiz</span>?</h2>
+                <p>We provide a seamless, secure, and instant purchasing experience for all your digital needs.</p>
+            </div>
+
+            <div class="features-grid">
+                <div class="feature-card glass-panel">
+                    <div class="feature-icon"><i class="fas fa-bolt"></i></div>
+                    <h3>Instant Delivery</h3>
+                    <p>Get your licenses and keys delivered instantly to your inbox immediately after payment
+                        confirmation.</p>
+                </div>
+                <div class="feature-card glass-panel">
+                    <div class="feature-icon"><i class="fas fa-shield-alt"></i></div>
+                    <h3>100% Secure</h3>
+                    <p>Bank-grade encryption ensures your payments and personal data are always protected.</p>
+                </div>
+                <div class="feature-card glass-panel">
+                    <div class="feature-icon"><i class="fas fa-headset"></i></div>
+                    <h3>24/7 Support</h3>
+                    <p>Our dedicated support team is available around the clock to help you with activation or issues.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact">
+        <div class="container">
+            <div class="contact-grid">
+                <div class="contact-info">
+                    <h2>Get in <span class="text-gradient">Touch</span></h2>
+                    <p>Have questions about our v2ray services? Our team is here to help you 24/7.</p>
+
+                    <div class="contact-methods">
+                        <div class="contact-method">
+                            <div class="method-icon"><i class="far fa-envelope"></i></div>
+                            <div class="method-details">
+                                <h4>Email Us</h4>
+                                <span>info@snopiz.com</span>
+                            </div>
+                        </div>
+                        <div class="contact-method">
+                            <div class="method-icon"><i class="fas fa-phone-alt"></i></div>
+                            <div class="method-details">
+                                <h4>Call Us</h4>
+                                <span>+94 77 662 3300</span>
+                            </div>
+                        </div>
+                        <div class="contact-method">
+                            <div class="method-icon"><i class="fas fa-map-marker-alt"></i></div>
+                            <div class="method-details">
+                                <h4>Visit Us</h4>
+                                <span>Snopiz Digital Solutions, Colombo<br>Sri Lanka</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="contact-form-wrapper glass-panel">
+                    <form class="contact-form">
+                        <div class="form-group-row">
+                            <div class="form-group">
+                                <label for="name">Name</label>
+                                <input type="text" id="name" placeholder="John Doe">
+                            </div>
+                            <div class="form-group">
+                                <label for="email">Email</label>
+                                <input type="email" id="email" placeholder="john@example.com">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="subject">Subject</label>
+                            <input type="text" id="subject" placeholder="Service Inquiry">
+                        </div>
+                        <div class="form-group">
+                            <label for="message">Message</label>
+                            <textarea id="message" rows="4" placeholder="How can we help you?"></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-block">Send Message <i
+                                class="far fa-paper-plane" style="margin-left: 5px;"></i></button>
+                    </form>
+                </div>
             </div>
         </div>
     </section>
@@ -158,7 +266,8 @@
     <footer>
         <div class="footer-grid">
             <div class="footer-col">
-                <a href="#" class="logo text-gradient" style="font-size: 1.5rem; margin-bottom: 1rem; display: inline-block;">Snopiz</a>
+                <a href="#" class="logo text-gradient"
+                    style="font-size: 1.5rem; margin-bottom: 1rem; display: inline-block;">Snopiz</a>
                 <p>Your trusted marketplace for premium digital goods. Fast, secure, and reliable.</p>
             </div>
             <div class="footer-col">
@@ -201,4 +310,5 @@
     <!-- Scripts -->
     <script src="script.js"></script>
 </body>
+
 </html>
