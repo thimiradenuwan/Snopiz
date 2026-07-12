@@ -1,7 +1,7 @@
 "use client"
 
 import { motion, Variants } from "framer-motion"
-import { ArrowRight, Sparkles } from "lucide-react"
+import { ArrowRight, Sparkles, Shield, Laptop, Gamepad, Package } from "lucide-react"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Card } from "@/components/ui/card"
@@ -10,6 +10,41 @@ const FADE_UP_ANIMATION_VARIANTS: Variants = {
   hidden: { opacity: 0, y: 30 },
   show: { opacity: 1, y: 0, transition: { type: "spring", stiffness: 100 } },
 }
+
+const categories = [
+  {
+    title: "V2Ray VPN",
+    description: "Premium secure VPN plans with instant activation.",
+    icon: Shield,
+    href: "/v2ray-vpn",
+    buttonText: "Explore VPN",
+    gradient: "from-blue-500/20 to-primary/20",
+  },
+  {
+    title: "Softwares & Apps",
+    description: "Premium software licenses and useful applications.",
+    icon: Laptop,
+    href: "/software-apps",
+    buttonText: "Browse Software",
+    gradient: "from-purple-500/20 to-accent/20",
+  },
+  {
+    title: "Game Cheats",
+    description: "Premium undetected gaming tools and cheats.",
+    icon: Gamepad,
+    href: "/game-cheats",
+    buttonText: "View Cheats",
+    gradient: "from-emerald-500/20 to-green-500/20",
+  },
+  {
+    title: "Other Items",
+    description: "More premium digital products and services.",
+    icon: Package,
+    href: "/other-items",
+    buttonText: "Explore More",
+    gradient: "from-orange-500/20 to-yellow-500/20",
+  },
+]
 
 export default function Home() {
   return (
@@ -66,8 +101,60 @@ export default function Home() {
         </motion.div>
       </section>
 
+      {/* Categories Section */}
+      <section className="w-full max-w-6xl px-6 py-24 relative z-10">
+        <div className="flex flex-col md:flex-row justify-between items-end mb-12 gap-6">
+          <div className="max-w-xl">
+            <h2 className="text-3xl md:text-4xl font-bold tracking-tight mb-4 text-white">Browse by Category</h2>
+            <p className="text-secondary-foreground">Explore our curated selection of premium digital products.</p>
+          </div>
+        </div>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          {categories.map((category, index) => {
+            const Icon = category.icon;
+            return (
+              <motion.div
+                key={category.href}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: index * 0.1 }}
+                whileHover={{ y: -8 }}
+                className="h-full"
+              >
+                <Link href={category.href} className="block h-full group">
+                  <Card className="h-full glass-panel border-white/5 overflow-hidden relative p-6 flex flex-col items-start gap-4 transition-all duration-300 hover:shadow-[0_8px_30px_rgb(0,0,0,0.12)] hover:shadow-primary/20">
+                    {/* Glowing Hover Borders */}
+                    <div className="absolute inset-0 border border-transparent group-hover:border-primary/50 rounded-xl transition-colors duration-500 z-20 pointer-events-none" />
+                    
+                    <div className={`absolute inset-0 bg-gradient-to-br ${category.gradient} opacity-0 group-hover:opacity-100 transition-opacity duration-500`} />
+                    
+                    <div className="w-12 h-12 rounded-xl bg-white/5 flex items-center justify-center border border-white/10 group-hover:scale-110 group-hover:rotate-3 transition-transform duration-300 relative z-10">
+                      <Icon className="w-6 h-6 text-white group-hover:text-primary transition-colors" />
+                    </div>
+                    
+                    <div className="relative z-10 flex-grow">
+                      <h3 className="text-xl font-semibold text-white mb-2 group-hover:text-primary transition-colors">{category.title}</h3>
+                      <p className="text-sm text-secondary-foreground">{category.description}</p>
+                    </div>
+                    
+                    <div className="w-full mt-auto relative z-10">
+                      <Button variant="ghost" className="w-full bg-white/5 hover:bg-primary/20 hover:text-white border border-white/5 group-hover:border-primary/50 transition-all duration-300 flex items-center justify-between rounded-xl">
+                        {category.buttonText}
+                        <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                      </Button>
+                    </div>
+                  </Card>
+                </Link>
+              </motion.div>
+            )
+          })}
+        </div>
+      </section>
+
       {/* Featured Products Section */}
-      <section className="w-full max-w-6xl px-6 py-24">
+      <section className="w-full max-w-6xl px-6 py-24 relative z-10">
         <div className="flex flex-col md:flex-row justify-between items-end mb-12 gap-6">
           <div className="max-w-xl">
             <h2 className="text-3xl md:text-4xl font-bold tracking-tight mb-4 text-white">Trending Now</h2>
