@@ -50,38 +50,38 @@
 }
 
 :root {
-  --background: #05070D;
-  --foreground: #FFFFFF;
-  --surface: #0D1320;
-  --card: rgba(20, 28, 45, 0.75);
-  --card-foreground: #FFFFFF;
-  --popover: #0D1320;
-  --popover-foreground: #FFFFFF;
+  --background: #FFFFFF;
+  --foreground: #05070D;
+  --surface: #F3F4F6;
+  --card: rgba(255, 255, 255, 0.75);
+  --card-foreground: #05070D;
+  --popover: #FFFFFF;
+  --popover-foreground: #05070D;
   --primary: #007AFF;
   --primary-foreground: #FFFFFF;
-  --secondary: #0D1320;
-  --secondary-foreground: #A8B3CF;
-  --muted: #0D1320;
-  --muted-foreground: #A8B3CF;
+  --secondary: #F3F4F6;
+  --secondary-foreground: #4B5563;
+  --muted: #F3F4F6;
+  --muted-foreground: #6B7280;
   --accent: #5AC8FA;
   --accent-foreground: #FFFFFF;
   --destructive: #FF3B30;
-  --border: rgba(255, 255, 255, 0.08);
-  --input: rgba(255, 255, 255, 0.08);
+  --border: rgba(0, 0, 0, 0.08);
+  --input: rgba(0, 0, 0, 0.08);
   --ring: #007AFF;
   --chart-1: #007AFF;
   --chart-2: #5AC8FA;
   --chart-3: #64D2FF;
   --chart-4: #A8B3CF;
   --chart-5: #0D1320;
-  --radius: 1rem;
-  --sidebar: #0D1320;
-  --sidebar-foreground: #FFFFFF;
+  --radius: 2rem;
+  --sidebar: #F3F4F6;
+  --sidebar-foreground: #05070D;
   --sidebar-primary: #007AFF;
   --sidebar-primary-foreground: #FFFFFF;
   --sidebar-accent: #5AC8FA;
   --sidebar-accent-foreground: #FFFFFF;
-  --sidebar-border: rgba(255, 255, 255, 0.08);
+  --sidebar-border: rgba(0, 0, 0, 0.08);
   --sidebar-ring: #007AFF;
 }
 
@@ -110,6 +110,7 @@
   --chart-3: #64D2FF;
   --chart-4: #A8B3CF;
   --chart-5: #0D1320;
+  --radius: 2rem;
   --sidebar: #0D1320;
   --sidebar-foreground: #FFFFFF;
   --sidebar-primary: #007AFF;
@@ -131,18 +132,18 @@
 
 @layer utilities {
   .glass {
-    @apply bg-card backdrop-blur-xl border border-border shadow-[0_4px_30px_rgba(0,0,0,0.1)];
+    @apply bg-card backdrop-blur-2xl border border-border/50 shadow-[0_8px_32px_rgba(0,0,0,0.08)];
   }
   
   .glass-panel {
-    @apply bg-surface/60 backdrop-blur-2xl border border-border;
+    @apply bg-surface/60 backdrop-blur-3xl border border-border/50 shadow-[0_8px_32px_rgba(0,0,0,0.08)];
   }
 
   .hover-glow {
-    @apply transition-all duration-300;
+    @apply transition-all duration-500 ease-out;
   }
   
   .hover-glow:hover {
-    @apply shadow-[0_0_20px_rgba(0,122,255,0.3)] -translate-y-[2px];
+    @apply shadow-[0_12px_40px_rgba(0,122,255,0.2)] -translate-y-1;
   }
 }

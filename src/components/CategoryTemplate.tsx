@@ -97,12 +97,7 @@ export default function CategoryTemplate({ title, description, products, faqs = 
 
   return (
     <div className="flex flex-col items-center w-full min-h-screen pt-24 pb-12">
-      {/* Breadcrumb Navigation */}
-      <div className="w-full max-w-6xl px-6 mb-4 flex items-center text-sm text-secondary-foreground z-10">
-        <Link href="/" className="hover:text-white transition-colors">Home</Link>
-        <ChevronRight className="w-4 h-4 mx-2" />
-        <span className="text-white">{title}</span>
-      </div>
+
 
       {/* Premium Hero Banner */}
       <section className="relative w-full max-w-6xl rounded-3xl overflow-hidden px-6 py-20 mb-16 mx-6 border border-white/10">

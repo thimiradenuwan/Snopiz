@@ -30,33 +30,26 @@ export default function ProductPage({ params }: { params: { id: string } }) {
 
   return (
     <div className="w-full max-w-7xl mx-auto px-6 py-12">
-      {/* Breadcrumb */}
-      <nav className="text-sm text-secondary-foreground mb-8 flex items-center gap-2">
-        <Link href="/" className="hover:text-white transition-colors">Home</Link>
-        <span>/</span>
-        <Link href="/shop" className="hover:text-white transition-colors">Shop</Link>
-        <span>/</span>
-        <span className="text-white">Premium UI Kit</span>
-      </nav>
+
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 xl:gap-24">
         {/* Gallery */}
         <div className="space-y-6">
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.5 }}
-            className="aspect-[4/3] w-full rounded-2xl glass-panel border-white/5 overflow-hidden relative group"
+            className="aspect-[4/3] w-full rounded-2xl glass-panel border-border overflow-hidden relative group"
           >
             <div className="absolute inset-0 bg-gradient-to-br from-primary/10 to-transparent" />
-            <div className="absolute inset-0 flex items-center justify-center text-white/30 text-lg font-medium">
+            <div className="absolute inset-0 flex items-center justify-center text-foreground/30 text-lg font-medium">
               Main Product Image
             </div>
           </motion.div>
           <div className="grid grid-cols-3 gap-4">
             {[1, 2, 3].map((i) => (
-              <div key={i} className="aspect-square rounded-xl glass-panel border-white/5 overflow-hidden relative hover:border-primary/50 transition-colors cursor-pointer">
-                <div className="absolute inset-0 flex items-center justify-center text-white/30 text-sm">
+              <div key={i} className="aspect-square rounded-xl glass-panel border-border overflow-hidden relative hover:border-primary/50 transition-colors cursor-pointer">
+                <div className="absolute inset-0 flex items-center justify-center text-foreground/30 text-sm">
                   Thumb {i}
                 </div>
               </div>
@@ -65,7 +58,7 @@ export default function ProductPage({ params }: { params: { id: string } }) {
         </div>
 
         {/* Product Info */}
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0, x: 20 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.5, delay: 0.1 }}
@@ -76,19 +69,19 @@ export default function ProductPage({ params }: { params: { id: string } }) {
               Digital Product
             </span>
             <div className="flex gap-2">
-              <Button variant="ghost" size="icon" className="text-secondary-foreground hover:text-white hover:bg-white/5 rounded-full" onClick={() => setIsWishlisted(!isWishlisted)}>
+              <Button variant="ghost" size="icon" className="text-secondary-foreground hover:text-foreground hover:bg-secondary rounded-full" onClick={() => setIsWishlisted(!isWishlisted)}>
                 <Heart className={`w-5 h-5 ${isWishlisted ? "fill-accent text-accent" : ""}`} />
               </Button>
-              <Button variant="ghost" size="icon" className="text-secondary-foreground hover:text-white hover:bg-white/5 rounded-full">
+              <Button variant="ghost" size="icon" className="text-secondary-foreground hover:text-foreground hover:bg-secondary rounded-full">
                 <Share2 className="w-5 h-5" />
               </Button>
             </div>
           </div>
-          
-          <h1 className="text-4xl md:text-5xl font-bold tracking-tight text-white mb-4">
+
+          <h1 className="text-4xl md:text-5xl font-bold tracking-tight text-foreground mb-4">
             Snopiz Premium UI Kit
           </h1>
-          
+
           <div className="flex items-center gap-4 mb-6">
             <div className="flex items-center gap-1 text-accent">
               <Star className="w-5 h-5 fill-current" />
@@ -97,21 +90,21 @@ export default function ProductPage({ params }: { params: { id: string } }) {
               <Star className="w-5 h-5 fill-current" />
               <Star className="w-5 h-5 fill-current opacity-50" />
             </div>
-            <span className="text-sm text-secondary-foreground underline decoration-dashed underline-offset-4 cursor-pointer hover:text-white transition-colors">
+            <span className="text-sm text-secondary-foreground underline decoration-dashed underline-offset-4 cursor-pointer hover:text-foreground transition-colors">
               (128 Reviews)
             </span>
           </div>
-          
-          <div className="text-4xl font-bold text-white mb-8">
+
+          <div className="text-4xl font-bold text-foreground mb-8">
             $99.00
           </div>
-          
+
           <p className="text-secondary-foreground text-lg mb-8 leading-relaxed">
             The ultimate design system for modern web applications. Featuring over 200+ meticulously crafted components with glassmorphism effects, perfect typography, and smooth animations.
           </p>
-          
+
           <div className="space-y-4 mb-10">
-            <h3 className="text-white font-medium">Included Features:</h3>
+            <h3 className="text-foreground font-medium">Included Features:</h3>
             <ul className="space-y-3">
               {['200+ Premium Components', 'Framer Motion Animations included', 'Fully Responsive Layouts', 'Lifetime Updates'].map((feat, i) => (
                 <li key={i} className="flex items-center gap-3 text-secondary-foreground">
@@ -123,19 +116,19 @@ export default function ProductPage({ params }: { params: { id: string } }) {
               ))}
             </ul>
           </div>
-          
-          <Separator className="bg-white/10 mb-8" />
-          
+
+          <Separator className="bg-border mb-8" />
+
           <div className="flex flex-col sm:flex-row gap-4 mb-8">
-            <Button size="lg" onClick={handleBuyNow} className="flex-1 bg-primary hover:bg-primary/90 text-white rounded-xl h-14 text-lg hover-glow group">
+            <Button size="lg" onClick={handleBuyNow} className="flex-1 bg-primary hover:bg-primary/90 text-primary-foreground rounded-xl h-14 text-lg hover-glow group">
               Buy Now
             </Button>
-            <Button size="lg" variant="outline" onClick={handleAddToCart} className="flex-1 rounded-xl h-14 text-lg border-white/10 glass hover:bg-white/5 transition-colors">
+            <Button size="lg" variant="outline" onClick={handleAddToCart} className="flex-1 rounded-xl h-14 text-lg border-border glass hover:bg-secondary transition-colors text-foreground">
               Add to Cart
             </Button>
           </div>
-          
-          <div className="glass rounded-xl p-6 border-white/5 flex flex-col gap-4">
+
+          <div className="glass rounded-xl p-6 border-border flex flex-col gap-4">
             <div className="flex items-center gap-3 text-secondary-foreground">
               <ShieldCheck className="w-6 h-6 text-accent" />
               <span className="text-sm">Secure Stripe Payment</span>
