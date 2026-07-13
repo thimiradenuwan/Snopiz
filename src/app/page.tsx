@@ -4,7 +4,7 @@ import { useState } from "react"
 import { motion, Variants, AnimatePresence } from "framer-motion"
 import { ArrowRight, Sparkles, Shield, Laptop, Gamepad, Package, Zap, Lock, Globe, MessageCircle, Star, ChevronDown } from "lucide-react"
 import Link from "next/link"
-import { Button } from "@/components/ui/button"
+import { Button, buttonVariants } from "@/components/ui/button"
 import { Card } from "@/components/ui/card"
 
 const FADE_UP_ANIMATION_VARIANTS: Variants = {
@@ -66,7 +66,7 @@ export default function Home() {
   return (
     <div className="flex flex-col items-center w-full">
       {/* Hero Section */}
-      <section className="relative w-full min-h-[95vh] flex flex-col items-center justify-center overflow-hidden px-6 pt-20">
+      <section className="relative w-full min-h-[95vh] flex flex-col items-center justify-center overflow-hidden px-6 pt-36">
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-primary/20 blur-[140px] rounded-full pointer-events-none" />
         <div className="absolute top-1/3 left-1/4 w-[500px] h-[500px] bg-accent/20 blur-[120px] rounded-full pointer-events-none" />
         
@@ -105,13 +105,13 @@ export default function Home() {
           </motion.p>
           
           <motion.div variants={FADE_UP_ANIMATION_VARIANTS} className="flex flex-col sm:flex-row gap-5 w-full justify-center">
-            <Button size="lg" className="bg-primary hover:bg-primary/90 text-primary-foreground rounded-full px-10 py-7 text-lg hover-glow group shadow-[0_8px_30px_rgba(0,122,255,0.3)]">
+            <Link href="/products" className={buttonVariants({ size: "lg", className: "bg-primary hover:bg-primary/90 text-primary-foreground rounded-full px-10 py-7 text-lg hover-glow group shadow-[0_8px_30px_rgba(0,122,255,0.3)]" })}>
               Explore Products
               <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1.5 transition-transform" />
-            </Button>
-            <Button size="lg" variant="outline" className="rounded-full px-10 py-7 text-lg border-border/50 glass hover:bg-secondary/80 transition-colors shadow-sm text-foreground">
+            </Link>
+            <Link href="/products" className={buttonVariants({ size: "lg", variant: "outline", className: "rounded-full px-10 py-7 text-lg border-border/50 glass hover:bg-secondary/80 transition-colors shadow-sm text-foreground" })}>
               View Categories
-            </Button>
+            </Link>
           </motion.div>
         </motion.div>
       </section>

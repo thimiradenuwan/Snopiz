@@ -8,7 +8,8 @@ export default async function DashboardLayout({
 }) {
   const session = await auth()
   if (!session) {
-    redirect("/login")
+    // Redirect to profile instead of broken /login route
+    redirect("/profile")
   }
   return <>{children}</>
 }

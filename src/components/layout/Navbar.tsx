@@ -2,147 +2,175 @@
 
 import { useState, useEffect } from "react"
 import Link from "next/link"
-import { motion, useScroll, useMotionValueEvent } from "framer-motion"
-import { Moon, Sun, User, Package, Download, Heart, Settings, ShieldCheck, LogOut, ShoppingCart } from "lucide-react"
+import { usePathname } from "next/navigation"
+import { motion, AnimatePresence } from "framer-motion"
+import { Moon, Sun, ShoppingCart, Menu, X } from "lucide-react"
 import { useTheme } from "next-themes"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
+import { useCartStore } from "@/store/cartStore"
+
+const navLinks = [
+  { href: "/", label: "Home" },
+  { href: "/products", label: "Products" },
+  { href: "/why-choose", label: "Why Choose" },
+  { href: "/contact", label: "Contact Us" },
+]
+
 
 export function Navbar() {
-  const { scrollY } = useScroll()
-  const [hidden, setHidden] = useState(false)
-  const [isScrolled, setIsScrolled] = useState(false)
-  const { theme, setTheme, resolvedTheme } = useTheme()
+  const pathname = usePathname()
+  const { setTheme, resolvedTheme } = useTheme()
   const [mounted, setMounted] = useState(false)
+  const [mobileOpen, setMobileOpen] = useState(false)
+  const [isScrolled, setIsScrolled] = useState(false)
+  const cart = useCartStore()
+
+  useEffect(() => { setMounted(true) }, [])
 
   useEffect(() => {
-    setMounted(true)
+    const handleScroll = () => setIsScrolled(window.scrollY > 30)
+    window.addEventListener("scroll", handleScroll, { passive: true })
+    return () => window.removeEventListener("scroll", handleScroll)
   }, [])
 
-  useMotionValueEvent(scrollY, "change", (latest) => {
-    const previous = scrollY.getPrevious() ?? 0
-    if (latest > previous && latest > 150) {
-      setHidden(true)
-    } else {
-      setHidden(false)
-    }
-    
-    if (latest > 50) {
-      setIsScrolled(true)
-    } else {
-      setIsScrolled(false)
-    }
-  })
+  // Close menus on route change
+  useEffect(() => {
+    setMobileOpen(false)
+  }, [pathname])
+
+  const isActive = (href: string) =>
+    href === "/" ? pathname === "/" : pathname.startsWith(href)
+
+  const cartCount = mounted ? cart.totalItems() : 0
 
   return (
     <motion.header
-      variants={{
-        visible: { y: 0 },
-        hidden: { y: "-100%" },
-      }}
-      animate={hidden ? "hidden" : "visible"}
-      transition={{ duration: 0.4, ease: "easeOut" }}
-      className={`fixed top-0 left-0 right-0 z-50 flex justify-center pt-4 px-4 transition-all duration-300`}
+      initial={{ y: -80, opacity: 0 }}
+      animate={{ y: 0, opacity: 1 }}
+      transition={{ duration: 0.5, ease: "easeOut" }}
+      className="fixed top-0 left-0 right-0 z-50 flex justify-center pt-4 px-4"
     >
-      <div 
-        className={`w-full max-w-6xl flex items-center justify-between px-6 py-3 rounded-full transition-all duration-500 ${
-          isScrolled 
-            ? "glass border border-border/50 shadow-lg" 
-            : "bg-transparent"
+      <div
+        className={`w-full max-w-6xl flex items-center justify-between px-5 py-2.5 rounded-full transition-all duration-500 ${
+          isScrolled
+            ? "bg-card/85 backdrop-blur-2xl border border-border/60 shadow-[0_8px_32px_rgba(0,0,0,0.12)] dark:shadow-[0_8px_32px_rgba(0,0,0,0.4)]"
+            : "bg-card/40 backdrop-blur-xl border border-border/40 shadow-[0_4px_16px_rgba(0,0,0,0.06)]"
         }`}
       >
-        <Link href="/" className="text-xl font-semibold tracking-tighter text-foreground flex items-center gap-1">
+        {/* Logo */}
+        <Link href="/" className="text-xl font-semibold tracking-tighter text-foreground flex items-center gap-0.5 flex-shrink-0">
           Snopiz<span className="text-primary">.com</span>
         </Link>
 
-        <nav className="hidden md:flex items-center gap-8 text-sm font-medium text-secondary-foreground">
-          <Link href="/" className="hover:text-foreground transition-colors">Home</Link>
-          <Link href="/products" className="hover:text-foreground transition-colors">Products</Link>
-          <Link href="/why-choose" className="hover:text-foreground transition-colors">Why Choose</Link>
-          <Link href="/contact" className="hover:text-foreground transition-colors">Contact Us</Link>
+        {/* Desktop Nav */}
+        <nav className="hidden md:flex items-center gap-1">
+          {navLinks.map((link) => (
+            <Link
+              key={link.href}
+              href={link.href}
+              className={`relative px-3.5 py-2 rounded-full text-sm font-medium transition-all duration-200 ${
+                isActive(link.href)
+                  ? "text-foreground bg-secondary/80"
+                  : "text-secondary-foreground hover:text-foreground hover:bg-secondary/50"
+              }`}
+            >
+              {link.label}
+              {isActive(link.href) && (
+                <motion.span
+                  layoutId="nav-indicator"
+                  className="absolute bottom-1 left-1/2 -translate-x-1/2 w-1 h-1 bg-primary rounded-full"
+                />
+              )}
+            </Link>
+          ))}
         </nav>
 
-        <div className="flex items-center gap-4 text-sm font-medium">
+        {/* Right Controls */}
+        <div className="flex items-center gap-2">
+          {/* Theme Toggle */}
           {mounted ? (
-            <button 
-              aria-label="Toggle Theme" 
+            <button
+              aria-label="Toggle theme"
               onClick={() => setTheme(resolvedTheme === "dark" ? "light" : "dark")}
-              className="flex items-center justify-center w-9 h-9 rounded-full bg-secondary/80 hover:bg-secondary transition-colors border border-border/50 backdrop-blur-md"
+              className="flex items-center justify-center w-9 h-9 rounded-full bg-secondary/70 hover:bg-secondary transition-colors border border-border/50 backdrop-blur-md"
             >
               {resolvedTheme === "dark" ? (
-                <Moon className="w-4 h-4 text-primary" />
-              ) : (
                 <Sun className="w-4 h-4 text-primary" />
+              ) : (
+                <Moon className="w-4 h-4 text-primary" />
               )}
             </button>
           ) : (
-            <div className="w-9 h-9 rounded-full bg-secondary border border-border/50"></div>
+            <div className="w-9 h-9 rounded-full bg-secondary/50 border border-border/50" />
           )}
 
-          <Link href="/cart" className="flex items-center justify-center w-9 h-9 rounded-full bg-secondary/80 hover:bg-secondary transition-colors border border-border/50 backdrop-blur-md">
+          {/* Cart */}
+          <Link
+            href="/cart"
+            className="relative flex items-center justify-center w-9 h-9 rounded-full bg-secondary/70 hover:bg-secondary transition-colors border border-border/50 backdrop-blur-md"
+            aria-label="Shopping Cart"
+          >
             <ShoppingCart className="w-4 h-4 text-foreground" />
+            {cartCount > 0 && (
+              <span className="absolute -top-1 -right-1 w-4 h-4 bg-primary text-primary-foreground text-[10px] font-bold rounded-full flex items-center justify-center">
+                {cartCount > 9 ? "9+" : cartCount}
+              </span>
+            )}
           </Link>
-          
-          <DropdownMenu>
-            <DropdownMenuTrigger className="outline-none">
-              <Avatar className="w-10 h-10 border-2 border-border/50 hover:border-primary/50 transition-colors cursor-pointer shadow-sm">
-                <AvatarImage src="https://github.com/shadcn.png" alt="@user" />
-                <AvatarFallback>U</AvatarFallback>
-              </Avatar>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent align="end" className="w-56 rounded-2xl p-2 glass-panel border-border/50">
-              <DropdownMenuLabel className="px-2 py-1.5 text-sm font-semibold text-foreground">
-                My Account
-              </DropdownMenuLabel>
-              <DropdownMenuSeparator className="bg-border/50" />
-              <DropdownMenuItem className="rounded-xl cursor-pointer hover:bg-secondary focus:bg-secondary p-0">
-                <Link href="/profile" className="flex w-full items-center px-2 py-1.5">
-                  <User className="mr-2 h-4 w-4" />
-                  <span>Profile</span>
-                </Link>
-              </DropdownMenuItem>
-              <DropdownMenuItem className="rounded-xl cursor-pointer hover:bg-secondary focus:bg-secondary p-0">
-                <Link href="/orders" className="flex w-full items-center px-2 py-1.5">
-                  <Package className="mr-2 h-4 w-4" />
-                  <span>Orders</span>
-                </Link>
-              </DropdownMenuItem>
-              <DropdownMenuItem className="rounded-xl cursor-pointer hover:bg-secondary focus:bg-secondary p-0">
-                <Link href="/downloads" className="flex w-full items-center px-2 py-1.5">
-                  <Download className="mr-2 h-4 w-4" />
-                  <span>Downloads</span>
-                </Link>
-              </DropdownMenuItem>
-              <DropdownMenuItem className="rounded-xl cursor-pointer hover:bg-secondary focus:bg-secondary p-0">
-                <Link href="/wishlist" className="flex w-full items-center px-2 py-1.5">
-                  <Heart className="mr-2 h-4 w-4" />
-                  <span>Wishlist</span>
-                </Link>
-              </DropdownMenuItem>
-              <DropdownMenuItem className="rounded-xl cursor-pointer hover:bg-secondary focus:bg-secondary p-0">
-                <Link href="/settings" className="flex w-full items-center px-2 py-1.5">
-                  <Settings className="mr-2 h-4 w-4" />
-                  <span>Settings</span>
-                </Link>
-              </DropdownMenuItem>
-              <DropdownMenuSeparator className="bg-border/50" />
-              <DropdownMenuItem className="rounded-xl cursor-pointer text-destructive focus:text-destructive focus:bg-destructive/10 hover:bg-destructive/10 p-0">
-                <Link href="/logout" className="flex w-full items-center px-2 py-1.5">
-                  <LogOut className="mr-2 h-4 w-4" />
-                  <span>Logout</span>
-                </Link>
-              </DropdownMenuItem>
-            </DropdownMenuContent>
-          </DropdownMenu>
+
+          {/* Profile Avatar → direct link to profile page */}
+          <Link
+            href="/profile"
+            aria-label="My Profile"
+            className="outline-none"
+          >
+            <Avatar className={`w-9 h-9 border-2 transition-colors cursor-pointer shadow-sm ${
+              pathname.startsWith("/profile") || pathname.startsWith("/orders") || pathname.startsWith("/downloads") || pathname.startsWith("/wishlist") || pathname.startsWith("/settings")
+                ? "border-primary"
+                : "border-border/50 hover:border-primary/50"
+            }`}>
+              <AvatarImage src="" alt="User avatar" />
+              <AvatarFallback className="text-sm font-semibold bg-secondary text-foreground">U</AvatarFallback>
+            </Avatar>
+          </Link>
+
+          {/* Mobile Menu Toggle */}
+          <button
+            className="flex md:hidden items-center justify-center w-9 h-9 rounded-full bg-secondary/70 hover:bg-secondary transition-colors border border-border/50"
+            onClick={() => setMobileOpen(!mobileOpen)}
+            aria-label="Toggle menu"
+          >
+            {mobileOpen ? <X className="w-4 h-4" /> : <Menu className="w-4 h-4" />}
+          </button>
         </div>
       </div>
+
+      {/* Mobile Menu */}
+      <AnimatePresence>
+        {mobileOpen && (
+          <motion.div
+            initial={{ opacity: 0, y: -10, scale: 0.98 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: -10, scale: 0.98 }}
+            transition={{ duration: 0.2 }}
+            className="absolute top-full mt-2 left-4 right-4 bg-card/90 backdrop-blur-2xl border border-border/60 rounded-3xl p-3 shadow-[0_16px_48px_rgba(0,0,0,0.2)] flex flex-col gap-1"
+          >
+            {navLinks.map((link) => (
+              <Link
+                key={link.href}
+                href={link.href}
+                className={`px-4 py-3 rounded-2xl text-sm font-medium transition-colors ${
+                  isActive(link.href)
+                    ? "bg-secondary text-foreground"
+                    : "text-secondary-foreground hover:bg-secondary/60 hover:text-foreground"
+                }`}
+              >
+                {link.label}
+              </Link>
+            ))}
+          </motion.div>
+        )}
+      </AnimatePresence>
     </motion.header>
   )
 }

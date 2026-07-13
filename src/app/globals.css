@@ -131,19 +131,68 @@
 }
 
 @layer utilities {
+  /* Apple Liquid Glass — primary surface */
   .glass {
-    @apply bg-card backdrop-blur-2xl border border-border/50 shadow-[0_8px_32px_rgba(0,0,0,0.08)];
+    background: rgba(255,255,255,0.55);
+    backdrop-filter: blur(24px) saturate(1.8);
+    -webkit-backdrop-filter: blur(24px) saturate(1.8);
+    border: 1px solid rgba(255,255,255,0.45);
+    box-shadow: 0 8px 32px rgba(0,0,0,0.08), inset 0 1px 0 rgba(255,255,255,0.6);
   }
-  
+  .dark .glass {
+    background: rgba(13,19,32,0.7);
+    border: 1px solid rgba(255,255,255,0.08);
+    box-shadow: 0 8px 32px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.05);
+  }
+
+  /* Apple Liquid Glass — secondary (deeper) panel */
   .glass-panel {
-    @apply bg-surface/60 backdrop-blur-3xl border border-border/50 shadow-[0_8px_32px_rgba(0,0,0,0.08)];
+    background: rgba(255,255,255,0.45);
+    backdrop-filter: blur(40px) saturate(2);
+    -webkit-backdrop-filter: blur(40px) saturate(2);
+    border: 1px solid rgba(255,255,255,0.5);
+    box-shadow: 0 16px 48px rgba(0,0,0,0.06), inset 0 1px 0 rgba(255,255,255,0.7);
+  }
+  .dark .glass-panel {
+    background: rgba(20,28,45,0.65);
+    border: 1px solid rgba(255,255,255,0.07);
+    box-shadow: 0 16px 48px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.04);
+  }
+
+  /* Hover lift — iOS spring feel */
+  .hover-lift {
+    @apply transition-all duration-300 ease-out;
+  }
+  .hover-lift:hover {
+    transform: translateY(-2px) scale(1.01);
+    box-shadow: 0 16px 40px rgba(0,122,255,0.18);
   }
 
   .hover-glow {
     @apply transition-all duration-500 ease-out;
   }
-  
   .hover-glow:hover {
-    @apply shadow-[0_12px_40px_rgba(0,122,255,0.2)] -translate-y-1;
+    @apply shadow-[0_12px_40px_rgba(0,122,255,0.22)] -translate-y-1;
+  }
+
+  /* Gradient text animation */
+  .animate-gradient {
+    background-size: 300%;
+    animation: gradientShift 6s ease infinite;
+  }
+  @keyframes gradientShift {
+    0%,100% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+  }
+
+  /* iOS-style subtle separator */
+  .ios-separator {
+    @apply h-px bg-gradient-to-r from-transparent via-border to-transparent;
+  }
+
+  @keyframes shimmer {
+    100% {
+      transform: translateX(100%);
+    }
   }
 }

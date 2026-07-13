@@ -63,7 +63,7 @@ export default function CategoryPage({ params }: { params: Promise<{ category: s
   }
 
   return (
-    <div className="flex flex-col items-center w-full min-h-screen pt-20 pb-32">
+    <div className="flex flex-col items-center w-full min-h-screen pt-36 pb-32">
       {/* Category Header */}
       <section className="relative w-full py-20 flex flex-col items-center justify-center overflow-hidden px-6 mb-12">
         <div className={`absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-gradient-to-br ${data.gradient} blur-[100px] rounded-full pointer-events-none opacity-50`} />

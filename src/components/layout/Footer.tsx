@@ -15,31 +15,31 @@ export function Footer() {
           </div>
           
           <div>
-            <h4 className="text-foreground font-medium mb-4">Shop</h4>
+            <h4 className="text-foreground font-medium mb-4">Products</h4>
             <ul className="space-y-2 text-sm text-secondary-foreground">
-              <li><Link href="/shop" className="hover:text-foreground transition-colors">All Products</Link></li>
-              <li><Link href="/digital" className="hover:text-foreground transition-colors">Digital Goods</Link></li>
-              <li><Link href="/trending" className="hover:text-foreground transition-colors">Trending</Link></li>
-              <li><Link href="/deals" className="hover:text-foreground transition-colors">Flash Deals</Link></li>
+              <li><Link href="/products/v2ray-vpn" className="hover:text-foreground transition-colors">V2Ray VPN</Link></li>
+              <li><Link href="/products/software" className="hover:text-foreground transition-colors">Software & Apps</Link></li>
+              <li><Link href="/products/game-cheat" className="hover:text-foreground transition-colors">Game Cheats</Link></li>
+              <li><Link href="/products/other" className="hover:text-foreground transition-colors">Other Items</Link></li>
             </ul>
           </div>
           
           <div>
             <h4 className="text-foreground font-medium mb-4">Support</h4>
             <ul className="space-y-2 text-sm text-secondary-foreground">
-              <li><Link href="/faq" className="hover:text-foreground transition-colors">FAQ</Link></li>
               <li><Link href="/contact" className="hover:text-foreground transition-colors">Contact Us</Link></li>
-              <li><Link href="/shipping" className="hover:text-foreground transition-colors">Shipping</Link></li>
-              <li><Link href="/returns" className="hover:text-foreground transition-colors">Returns</Link></li>
+              <li><Link href="/#faq" className="hover:text-foreground transition-colors">FAQ</Link></li>
+              <li><Link href="https://discord.gg/snopiz" className="hover:text-foreground transition-colors" target="_blank" rel="noopener noreferrer">Discord</Link></li>
+              <li><Link href="https://t.me/snopiz" className="hover:text-foreground transition-colors" target="_blank" rel="noopener noreferrer">Telegram</Link></li>
             </ul>
           </div>
 
           <div>
-            <h4 className="text-foreground font-medium mb-4">Legal</h4>
+            <h4 className="text-foreground font-medium mb-4">Company</h4>
             <ul className="space-y-2 text-sm text-secondary-foreground">
               <li><Link href="/privacy" className="hover:text-foreground transition-colors">Privacy Policy</Link></li>
               <li><Link href="/terms" className="hover:text-foreground transition-colors">Terms of Service</Link></li>
-              <li><Link href="/cookies" className="hover:text-foreground transition-colors">Cookie Policy</Link></li>
+              <li><Link href="/why-choose" className="hover:text-foreground transition-colors">Why Choose Us</Link></li>
             </ul>
           </div>
         </div>

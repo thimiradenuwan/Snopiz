@@ -34,7 +34,7 @@ export default function CartPage() {
           <p className="text-secondary-foreground mb-8 max-w-md">
             Looks like you haven&apos;t added any premium digital assets or items to your cart yet.
           </p>
-          <Link href="/shop">
+          <Link href="/products">
             <Button size="lg" className="bg-primary hover:bg-primary/90 text-white rounded-xl hover-glow">
               Continue Shopping
             </Button>
@@ -115,7 +115,7 @@ export default function CartPage() {
                 <span className="text-lg font-bold text-white">Total</span>
                 <span className="text-2xl font-bold text-white">${cart.totalPrice().toFixed(2)}</span>
               </div>
-              <Link href="/checkout">
+              <Link href="#">
                 <Button size="lg" className="w-full bg-primary hover:bg-primary/90 text-white rounded-xl h-14 text-lg hover-glow group">
                   Proceed to Checkout
                   <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />

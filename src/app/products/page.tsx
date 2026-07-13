@@ -42,7 +42,7 @@ const categories = [
 
 export default function ProductsPage() {
   return (
-    <div className="flex flex-col items-center w-full min-h-[80vh] pt-20 pb-32">
+    <div className="flex flex-col items-center w-full min-h-[80vh] pt-36 pb-32">
       <div className="text-center mb-16 max-w-3xl mx-auto px-6">
         <motion.h1 
           initial={{ opacity: 0, y: 20 }}
