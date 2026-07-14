@@ -4,10 +4,12 @@ import { useState, useEffect } from "react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { motion, AnimatePresence } from "framer-motion"
-import { Moon, Sun, ShoppingCart, Menu, X } from "lucide-react"
+import { Moon, Sun, ShoppingCart, Menu, X, User, LogOut, Package, Download, Heart, Settings } from "lucide-react"
 import { useTheme } from "next-themes"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { useCartStore } from "@/store/cartStore"
+import { Session } from "next-auth"
+import { useRouter } from "next/navigation"
 
 const navLinks = [
   { href: "/", label: "Home" },
@@ -17,8 +19,9 @@ const navLinks = [
 ]
 
 
-export function Navbar() {
+export function Navbar({ session }: { session: Session | null }) {
   const pathname = usePathname()
+  const router = useRouter()
   const { setTheme, resolvedTheme } = useTheme()
   const [mounted, setMounted] = useState(false)
   const [mobileOpen, setMobileOpen] = useState(false)
@@ -118,21 +121,36 @@ export function Navbar() {
             )}
           </Link>
 
-          {/* Profile Avatar → direct link to profile page */}
-          <Link
-            href="/profile"
-            aria-label="My Profile"
-            className="outline-none"
-          >
-            <Avatar className={`w-9 h-9 border-2 transition-colors cursor-pointer shadow-sm ${
-              pathname.startsWith("/profile") || pathname.startsWith("/orders") || pathname.startsWith("/downloads") || pathname.startsWith("/wishlist") || pathname.startsWith("/settings")
-                ? "border-primary"
-                : "border-border/50 hover:border-primary/50"
-            }`}>
-              <AvatarImage src="" alt="User avatar" />
-              <AvatarFallback className="text-sm font-semibold bg-secondary text-foreground">U</AvatarFallback>
-            </Avatar>
-          </Link>
+          {/* Authentication UI */}
+          {session?.user ? (
+            <Link href="/profile" className="outline-none">
+              <Avatar className={`w-9 h-9 border-2 transition-colors cursor-pointer shadow-sm ${
+                pathname.startsWith("/profile") || pathname.startsWith("/orders") || pathname.startsWith("/downloads") || pathname.startsWith("/wishlist") || pathname.startsWith("/settings")
+                  ? "border-primary"
+                  : "border-border/50 hover:border-primary/50"
+              }`}>
+                <AvatarImage src={session.user.image || ""} alt={session.user.name || "User"} />
+                <AvatarFallback className="text-sm font-semibold bg-secondary text-foreground">
+                  {session.user.name?.[0]?.toUpperCase() || "U"}
+                </AvatarFallback>
+              </Avatar>
+            </Link>
+          ) : (
+            <div className="hidden sm:flex items-center gap-2">
+              <Link
+                href="/login"
+                className="px-4 py-1.5 rounded-full text-sm font-medium text-foreground hover:bg-secondary/50 transition-colors"
+              >
+                Sign In
+              </Link>
+              <Link
+                href="/register"
+                className="px-4 py-1.5 rounded-full text-sm font-medium bg-primary text-primary-foreground hover:bg-primary/90 transition-colors shadow-[0_0_15px_rgba(0,122,255,0.3)]"
+              >
+                Sign Up
+              </Link>
+            </div>
+          )}
 
           {/* Mobile Menu Toggle */}
           <button

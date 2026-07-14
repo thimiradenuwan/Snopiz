@@ -5,7 +5,10 @@ import Credentials from "next-auth/providers/credentials"
 import Google from "next-auth/providers/google"
 import bcrypt from "bcrypt"
 
+import { authConfig } from "./auth.config"
+
 export const { handlers, auth, signIn, signOut } = NextAuth({
+  ...authConfig,
   adapter: PrismaAdapter(prisma),
   session: { strategy: "jwt" },
   providers: [
@@ -32,24 +35,10 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
           user.password
         )
         
-        if (passwordsMatch) return user
+        if (passwordsMatch) return { ...user, role: user.role }
         
         return null
       }
     })
-  ],
-  callbacks: {
-    session: ({ session, token }) => {
-      if (token.sub && session.user) {
-        session.user.id = token.sub
-      }
-      return session
-    },
-    jwt: ({ token, user }) => {
-      if (user) {
-        token.sub = user.id
-      }
-      return token
-    }
-  }
+  ]
 })

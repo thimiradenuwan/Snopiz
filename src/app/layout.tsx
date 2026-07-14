@@ -5,6 +5,7 @@ import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { Breadcrumb } from "@/components/layout/Breadcrumb";
 import { ThemeProvider } from "@/components/theme-provider";
+import { auth } from "@/auth";
 
 const inter = Inter({
   variable: "--font-sans",
@@ -16,11 +17,12 @@ export const metadata: Metadata = {
   description: "Luxury digital products and small fantastic items.",
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const session = await auth();
   return (
     <html
       lang="en"
@@ -34,7 +36,7 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <Navbar />
+          <Navbar session={session} />
           <main className="flex-1 mt-24">
             <Breadcrumb />
             {children}
