@@ -123,7 +123,7 @@ export function Navbar({ session }: { session: Session | null }) {
 
           {/* Authentication UI */}
           {session?.user ? (
-            <Link href="/profile" className="outline-none">
+            <Link href="/profile" className="hidden md:block outline-none">
               <Avatar className={`w-9 h-9 border-2 transition-colors cursor-pointer shadow-sm ${
                 pathname.startsWith("/profile") || pathname.startsWith("/orders") || pathname.startsWith("/downloads") || pathname.startsWith("/wishlist") || pathname.startsWith("/settings")
                   ? "border-primary"
@@ -136,7 +136,7 @@ export function Navbar({ session }: { session: Session | null }) {
               </Avatar>
             </Link>
           ) : (
-            <div className="hidden sm:flex items-center gap-2">
+            <div className="hidden md:flex items-center gap-2">
               <Link
                 href="/login"
                 className="px-4 py-1.5 rounded-full text-sm font-medium text-foreground hover:bg-secondary/50 transition-colors"
@@ -171,7 +171,7 @@ export function Navbar({ session }: { session: Session | null }) {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: -10, scale: 0.98 }}
             transition={{ duration: 0.2 }}
-            className="absolute top-full mt-2 left-4 right-4 bg-card/90 backdrop-blur-2xl border border-border/60 rounded-3xl p-3 shadow-[0_16px_48px_rgba(0,0,0,0.2)] flex flex-col gap-1"
+            className="absolute top-full mt-2 left-4 right-4 bg-card/90 backdrop-blur-2xl border border-border/60 rounded-3xl p-3 shadow-[0_16px_48px_rgba(0,0,0,0.2)] flex flex-col gap-1 md:hidden"
           >
             {navLinks.map((link) => (
               <Link
@@ -186,6 +186,38 @@ export function Navbar({ session }: { session: Session | null }) {
                 {link.label}
               </Link>
             ))}
+            
+            <div className="h-px bg-border/50 my-1 mx-2" />
+            
+            {session?.user ? (
+              <Link
+                href="/profile"
+                className="px-4 py-3 rounded-2xl text-sm font-medium text-secondary-foreground hover:bg-secondary/60 hover:text-foreground flex items-center gap-3"
+              >
+                <Avatar className="w-6 h-6 border border-border/50">
+                  <AvatarImage src={session.user.image || ""} alt={session.user.name || "User"} />
+                  <AvatarFallback className="text-[10px] bg-secondary text-foreground">
+                    {session.user.name?.[0]?.toUpperCase() || "U"}
+                  </AvatarFallback>
+                </Avatar>
+                My Profile
+              </Link>
+            ) : (
+              <div className="flex flex-col gap-2 mt-1">
+                <Link
+                  href="/login"
+                  className="px-4 py-3 rounded-2xl text-sm font-medium text-secondary-foreground hover:bg-secondary/60 hover:text-foreground text-center"
+                >
+                  Sign In
+                </Link>
+                <Link
+                  href="/register"
+                  className="px-4 py-3 rounded-2xl text-sm font-medium bg-primary text-primary-foreground hover:bg-primary/90 shadow-[0_0_15px_rgba(0,122,255,0.3)] text-center transition-colors"
+                >
+                  Sign Up
+                </Link>
+              </div>
+            )}
           </motion.div>
         )}
       </AnimatePresence>
