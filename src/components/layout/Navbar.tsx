@@ -25,6 +25,7 @@ export function Navbar({ session }: { session: Session | null }) {
   const { setTheme, resolvedTheme } = useTheme()
   const [mounted, setMounted] = useState(false)
   const [mobileOpen, setMobileOpen] = useState(false)
+  const [mobileAuthOpen, setMobileAuthOpen] = useState(false)
   const [isScrolled, setIsScrolled] = useState(false)
   const cart = useCartStore()
 
@@ -39,6 +40,7 @@ export function Navbar({ session }: { session: Session | null }) {
   // Close menus on route change
   useEffect(() => {
     setMobileOpen(false)
+    setMobileAuthOpen(false)
   }, [pathname])
 
   const isActive = (href: string) =>
@@ -123,7 +125,7 @@ export function Navbar({ session }: { session: Session | null }) {
 
           {/* Authentication UI */}
           {session?.user ? (
-            <Link href="/profile" className="hidden md:block outline-none">
+            <Link href="/profile" className="outline-none">
               <Avatar className={`w-9 h-9 border-2 transition-colors cursor-pointer shadow-sm ${
                 pathname.startsWith("/profile") || pathname.startsWith("/orders") || pathname.startsWith("/downloads") || pathname.startsWith("/wishlist") || pathname.startsWith("/settings")
                   ? "border-primary"
@@ -136,26 +138,71 @@ export function Navbar({ session }: { session: Session | null }) {
               </Avatar>
             </Link>
           ) : (
-            <div className="hidden md:flex items-center gap-2">
-              <Link
-                href="/login"
-                className="px-4 py-1.5 rounded-full text-sm font-medium text-foreground hover:bg-secondary/50 transition-colors"
-              >
-                Sign In
-              </Link>
-              <Link
-                href="/register"
-                className="px-4 py-1.5 rounded-full text-sm font-medium bg-primary text-primary-foreground hover:bg-primary/90 transition-colors shadow-[0_0_15px_rgba(0,122,255,0.3)]"
-              >
-                Sign Up
-              </Link>
-            </div>
+            <>
+              {/* Desktop Auth */}
+              <div className="hidden md:flex items-center gap-2">
+                <Link
+                  href="/login"
+                  className="px-4 py-1.5 rounded-full text-sm font-medium text-foreground hover:bg-secondary/50 transition-colors"
+                >
+                  Sign In
+                </Link>
+                <Link
+                  href="/register"
+                  className="px-4 py-1.5 rounded-full text-sm font-medium bg-primary text-primary-foreground hover:bg-primary/90 transition-colors shadow-[0_0_15px_rgba(0,122,255,0.3)]"
+                >
+                  Sign Up
+                </Link>
+              </div>
+
+              {/* Mobile Auth */}
+              <div className="relative md:hidden flex items-center">
+                <button
+                  className="flex items-center justify-center w-9 h-9 rounded-full bg-secondary/70 hover:bg-secondary transition-colors border border-border/50"
+                  onClick={() => {
+                    setMobileAuthOpen(!mobileAuthOpen)
+                    setMobileOpen(false)
+                  }}
+                  aria-label="Toggle authentication menu"
+                >
+                  <User className="w-4 h-4 text-foreground" />
+                </button>
+
+                <AnimatePresence>
+                  {mobileAuthOpen && (
+                    <motion.div
+                      initial={{ opacity: 0, y: 10, scale: 0.95 }}
+                      animate={{ opacity: 1, y: 0, scale: 1 }}
+                      exit={{ opacity: 0, y: 10, scale: 0.95 }}
+                      transition={{ duration: 0.2 }}
+                      className="absolute top-full right-0 mt-4 w-48 bg-card/90 backdrop-blur-2xl border border-border/60 rounded-3xl p-2 shadow-[0_16px_48px_rgba(0,0,0,0.2)] flex flex-col gap-1 z-50 origin-top-right"
+                    >
+                      <Link
+                        href="/login"
+                        className="px-4 py-3 rounded-2xl text-sm font-medium text-secondary-foreground hover:bg-secondary/60 hover:text-foreground transition-colors"
+                      >
+                        Sign In
+                      </Link>
+                      <Link
+                        href="/register"
+                        className="px-4 py-3 rounded-2xl text-sm font-medium bg-primary text-primary-foreground hover:bg-primary/90 text-center transition-colors shadow-[0_0_15px_rgba(0,122,255,0.3)] mt-1"
+                      >
+                        Sign Up
+                      </Link>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </div>
+            </>
           )}
 
           {/* Mobile Menu Toggle */}
           <button
             className="flex md:hidden items-center justify-center w-9 h-9 rounded-full bg-secondary/70 hover:bg-secondary transition-colors border border-border/50"
-            onClick={() => setMobileOpen(!mobileOpen)}
+            onClick={() => {
+              setMobileOpen(!mobileOpen)
+              setMobileAuthOpen(false)
+            }}
             aria-label="Toggle menu"
           >
             {mobileOpen ? <X className="w-4 h-4" /> : <Menu className="w-4 h-4" />}
@@ -186,38 +233,6 @@ export function Navbar({ session }: { session: Session | null }) {
                 {link.label}
               </Link>
             ))}
-            
-            <div className="h-px bg-border/50 my-1 mx-2" />
-            
-            {session?.user ? (
-              <Link
-                href="/profile"
-                className="px-4 py-3 rounded-2xl text-sm font-medium text-secondary-foreground hover:bg-secondary/60 hover:text-foreground flex items-center gap-3"
-              >
-                <Avatar className="w-6 h-6 border border-border/50">
-                  <AvatarImage src={session.user.image || ""} alt={session.user.name || "User"} />
-                  <AvatarFallback className="text-[10px] bg-secondary text-foreground">
-                    {session.user.name?.[0]?.toUpperCase() || "U"}
-                  </AvatarFallback>
-                </Avatar>
-                My Profile
-              </Link>
-            ) : (
-              <div className="flex flex-col gap-2 mt-1">
-                <Link
-                  href="/login"
-                  className="px-4 py-3 rounded-2xl text-sm font-medium text-secondary-foreground hover:bg-secondary/60 hover:text-foreground text-center"
-                >
-                  Sign In
-                </Link>
-                <Link
-                  href="/register"
-                  className="px-4 py-3 rounded-2xl text-sm font-medium bg-primary text-primary-foreground hover:bg-primary/90 shadow-[0_0_15px_rgba(0,122,255,0.3)] text-center transition-colors"
-                >
-                  Sign Up
-                </Link>
-              </div>
-            )}
           </motion.div>
         )}
       </AnimatePresence>

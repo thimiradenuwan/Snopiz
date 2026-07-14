@@ -7,7 +7,7 @@ import {
   ShoppingBag, Star, ChevronRight, Bell, Shield, Globe, Palette,
 } from "lucide-react"
 import { useRouter } from "next/navigation"
-import { logoutAction } from "@/actions/auth"
+import { signOut } from "next-auth/react"
 
 type UserProps = {
   name: string | null;
@@ -229,10 +229,7 @@ export default function ProfileClient({ user }: { user: UserProps }) {
               {/* Logout */}
               <div className="px-3 py-3 border-t border-border/30 mt-auto">
                 <button
-                  onClick={async () => {
-                    await logoutAction()
-                    window.location.href = "/login"
-                  }}
+                  onClick={() => signOut({ callbackUrl: "/login" })}
                   className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium text-destructive hover:bg-destructive/10 transition-colors text-left"
                 >
                   <LogOut className="w-4 h-4 flex-shrink-0" />
