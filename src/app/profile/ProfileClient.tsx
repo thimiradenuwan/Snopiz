@@ -1,5 +1,6 @@
 "use client"
 
+import Link from "next/link"
 import { useState } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import {
@@ -207,6 +208,15 @@ export default function ProfileClient({ user }: { user: UserProps }) {
 
               {/* Nav items */}
               <div className="px-3 py-3">
+                {user.role === 'ADMIN' && (
+                  <Link
+                    href="/admin"
+                    className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-all duration-200 text-left mb-1 text-primary hover:bg-primary/10"
+                  >
+                    <Shield className="w-4 h-4 flex-shrink-0" />
+                    Admin Portal
+                  </Link>
+                )}
                 {sidebarItems.map(({ id, label, icon: Icon }) => {
                   const isActive = active === id
                   return (
