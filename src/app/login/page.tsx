@@ -6,6 +6,7 @@ import { ArrowRight, Mail, Lock, AlertCircle, Loader2 } from "lucide-react"
 import Link from "next/link"
 import { useRouter } from "next/navigation"
 import { loginAction } from "@/actions/auth"
+import { useCartStore } from "@/store/cartStore"
 
 export default function LoginPage() {
   const router = useRouter()
@@ -18,6 +19,10 @@ export default function LoginPage() {
     setError(null)
     
     const formData = new FormData(e.currentTarget)
+    const cartItems = useCartStore.getState().items
+    if (cartItems.length > 0) {
+      formData.append("guestCart", JSON.stringify(cartItems))
+    }
     const result = await loginAction(formData)
     
     if (result?.error) {

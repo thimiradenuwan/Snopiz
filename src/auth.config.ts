@@ -12,7 +12,12 @@ export const authConfig = {
       const isProtectedPath = protectedPaths.some(path => nextUrl.pathname.startsWith(path))
 
       if (isProtectedPath) {
-        if (isLoggedIn) return true
+        if (isLoggedIn) {
+          if (nextUrl.pathname.startsWith("/admin") && (auth?.user as any)?.role !== "ADMIN") {
+            return Response.redirect(new URL("/", nextUrl))
+          }
+          return true
+        }
         return false // Redirect to signIn
       } else if (isLoggedIn) {
         const isAuthPath = nextUrl.pathname.startsWith("/login") || nextUrl.pathname.startsWith("/register")

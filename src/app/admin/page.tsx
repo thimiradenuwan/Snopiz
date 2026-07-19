@@ -1,19 +1,92 @@
-"use client"
-import { motion } from "framer-motion"
+import { prisma } from "@/lib/prisma"
+import { StatCard } from "@/components/admin/stat-card"
+import { RecentUsers } from "@/components/admin/recent-users"
+import { RecentOrders } from "@/components/admin/recent-orders"
+import { QuickActions } from "@/components/admin/quick-actions"
+import { Users, Package, Tags, ShoppingCart } from "lucide-react"
 
-export default function AdminDashboardPage() {
+export default async function AdminDashboardPage() {
+  // Fetch statistics
+  const [
+    totalUsers,
+    totalProducts,
+    totalCategories,
+    totalOrders,
+    recentUsers,
+    recentOrders,
+  ] = await Promise.all([
+    prisma.user.count(),
+    prisma.product.count(),
+    prisma.category.count(),
+    prisma.order.count(),
+    prisma.user.findMany({
+      take: 5,
+      orderBy: { createdAt: "desc" },
+      select: {
+        id: true,
+        name: true,
+        email: true,
+        image: true,
+        role: true,
+        createdAt: true,
+      },
+    }),
+    prisma.order.findMany({
+      take: 5,
+      orderBy: { createdAt: "desc" },
+      include: {
+        user: {
+          select: { name: true, email: true, image: true },
+        },
+      },
+    }),
+  ])
+
   return (
-    <div className="w-full max-w-7xl mx-auto px-6 py-24 min-h-[70vh] flex flex-col items-center justify-center">
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        className="glass-panel p-12 rounded-3xl border-white/10 text-center max-w-2xl w-full"
-      >
-        <h1 className="text-4xl font-bold tracking-tight text-white mb-6">Admin Dashboard</h1>
-        <p className="text-secondary-foreground text-lg mb-8">
-          This premium page is currently under construction. Apple-quality design and functionality coming soon.
-        </p>
-      </motion.div>
+    <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
+      <div className="flex items-center justify-between">
+        <div>
+          <h1 className="text-3xl font-bold tracking-tight text-foreground">Dashboard</h1>
+          <p className="text-secondary-foreground mt-1">
+            Welcome to the Snopiz admin portal. Here's what's happening today.
+          </p>
+        </div>
+      </div>
+
+      {/* Top Stats */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <StatCard 
+          title="Total Users" 
+          value={totalUsers} 
+          icon={<Users className="h-6 w-6" />} 
+          delay={0.0} 
+        />
+        <StatCard 
+          title="Total Products" 
+          value={totalProducts} 
+          icon={<Package className="h-6 w-6" />} 
+          delay={0.1} 
+        />
+        <StatCard 
+          title="Total Categories" 
+          value={totalCategories} 
+          icon={<Tags className="h-6 w-6" />} 
+          delay={0.2} 
+        />
+        <StatCard 
+          title="Total Orders" 
+          value={totalOrders} 
+          icon={<ShoppingCart className="h-6 w-6" />} 
+          delay={0.3} 
+        />
+      </div>
+
+      {/* Sections */}
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <RecentUsers users={recentUsers} />
+        <RecentOrders orders={recentOrders} />
+        <QuickActions />
+      </div>
     </div>
   )
 }

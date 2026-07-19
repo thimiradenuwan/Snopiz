@@ -8,19 +8,27 @@ import { Separator } from "@/components/ui/separator"
 import Link from "next/link"
 import { useCartStore } from "@/store/cartStore"
 import { useRouter } from "next/navigation"
+import { addToCartAction } from "@/actions/cart"
 
 export default function ProductPage({ params }: { params: { id: string } }) {
   const [isWishlisted, setIsWishlisted] = useState(false)
   const cart = useCartStore()
   const router = useRouter()
 
-  const handleAddToCart = () => {
+  const handleAddToCart = async () => {
     cart.addItem({
       id: params.id,
       title: "Snopiz Premium UI Kit",
       price: 99.00,
       quantity: 1,
     })
+    
+    // Call server action (will gracefully fail if not logged in)
+    try {
+      await addToCartAction(params.id, 1)
+    } catch (e) {
+      console.error(e)
+    }
   }
 
   const handleBuyNow = () => {

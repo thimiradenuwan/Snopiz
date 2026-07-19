@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button"
 import { Separator } from "@/components/ui/separator"
 import Link from "next/link"
 import { useEffect, useState } from "react"
+import { updateCartItemAction, removeFromCartAction } from "@/actions/cart"
 
 export default function CartPage() {
   const [mounted, setMounted] = useState(false)
@@ -65,7 +66,15 @@ export default function CartPage() {
                       variant="ghost" 
                       size="icon" 
                       className="h-8 w-8 rounded-full text-secondary-foreground hover:text-white hover:bg-white/5"
-                      onClick={() => item.quantity > 1 ? cart.updateQuantity(item.id, item.quantity - 1) : cart.removeItem(item.id)}
+                      onClick={() => {
+                        if (item.quantity > 1) {
+                          cart.updateQuantity(item.id, item.quantity - 1)
+                          updateCartItemAction(item.id, item.quantity - 1).catch(console.error)
+                        } else {
+                          cart.removeItem(item.id)
+                          removeFromCartAction(item.id).catch(console.error)
+                        }
+                      }}
                     >
                       <Minus className="w-3 h-3" />
                     </Button>
@@ -74,7 +83,10 @@ export default function CartPage() {
                       variant="ghost" 
                       size="icon" 
                       className="h-8 w-8 rounded-full text-secondary-foreground hover:text-white hover:bg-white/5"
-                      onClick={() => cart.updateQuantity(item.id, item.quantity + 1)}
+                      onClick={() => {
+                        cart.updateQuantity(item.id, item.quantity + 1)
+                        updateCartItemAction(item.id, item.quantity + 1).catch(console.error)
+                      }}
                     >
                       <Plus className="w-3 h-3" />
                     </Button>
@@ -83,7 +95,10 @@ export default function CartPage() {
                     variant="ghost" 
                     size="icon" 
                     className="text-destructive/80 hover:text-destructive hover:bg-destructive/10 rounded-full"
-                    onClick={() => cart.removeItem(item.id)}
+                    onClick={() => {
+                      cart.removeItem(item.id)
+                      removeFromCartAction(item.id).catch(console.error)
+                    }}
                   >
                     <Trash2 className="w-5 h-5" />
                   </Button>

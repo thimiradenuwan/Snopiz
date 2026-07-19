@@ -20,7 +20,8 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
     Credentials({
       credentials: {
         email: { label: "Email", type: "email" },
-        password: { label: "Password", type: "password" }
+        password: { label: "Password", type: "password" },
+        guestCart: { label: "Guest Cart", type: "text" }
       },
       async authorize(credentials) {
         if (!credentials?.email || !credentials?.password) return null
@@ -36,7 +37,20 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
           user.password
         )
         
-        if (passwordsMatch) return { ...user, role: user.role }
+        if (passwordsMatch) {
+          if (credentials.guestCart) {
+            try {
+              const guestItems = JSON.parse(credentials.guestCart as string)
+              if (guestItems && guestItems.length > 0) {
+                const { mergeGuestCartAction } = await import("./actions/cart")
+                await mergeGuestCartAction(guestItems, user.id)
+              }
+            } catch (e) {
+              console.error("Failed to parse/merge guest cart:", e)
+            }
+          }
+          return { ...user, role: user.role }
+        }
         
         return null
       }
