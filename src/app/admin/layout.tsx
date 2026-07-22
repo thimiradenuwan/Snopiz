@@ -1,7 +1,7 @@
 import { redirect } from "next/navigation"
 import { auth } from "@/auth"
 import Link from "next/link"
-import { ShieldAlert, LayoutDashboard, Users, ShoppingCart, Settings, PackageSearch, Tags } from "lucide-react"
+import { ShieldAlert, LayoutDashboard, Users, ShoppingCart, Settings, PackageSearch, Tags, Network, Box } from "lucide-react"
 
 export default async function AdminLayout({
   children,
@@ -61,6 +61,20 @@ export default async function AdminLayout({
             >
               <Users className="h-4 w-4" />
               <span className="hidden sm:inline-block">Users</span>
+            </Link>
+            <Link 
+              href="/admin/vpn-providers" 
+              className="px-3 py-2 text-secondary-foreground hover:text-foreground transition-colors hover:bg-secondary rounded-md flex items-center gap-2"
+            >
+              <Network className="h-4 w-4" />
+              <span className="hidden sm:inline-block">VPN Providers</span>
+            </Link>
+            <Link 
+              href="/admin/vpn-packages" 
+              className="px-3 py-2 text-secondary-foreground hover:text-foreground transition-colors hover:bg-secondary rounded-md flex items-center gap-2"
+            >
+              <Box className="h-4 w-4" />
+              <span className="hidden sm:inline-block">VPN Packages</span>
             </Link>
           </nav>
 

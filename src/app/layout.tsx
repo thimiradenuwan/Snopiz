@@ -50,11 +50,16 @@ export default async function RootLayout({
     });
 
     dbCartItems = dbItems.map((item) => ({
+      cartItemId: item.id,
       id: item.productId,
       title: item.product.title,
       price: item.product.price,
       quantity: item.quantity,
       image: item.product.images[0]?.image ?? "",
+      plan: item.plan ?? undefined,
+      provider: item.provider ?? undefined,
+      package: item.package ?? undefined,
+      duration: item.duration ?? undefined,
     }));
   }
 

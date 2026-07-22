@@ -16,6 +16,7 @@ export function Breadcrumb() {
 
   // Format segment for display: capitalize and replace dashes with spaces
   const formatSegment = (segment: string) => {
+    if (segment.toLowerCase() === 'product') return 'Products';
     return segment
       .split("-")
       .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
@@ -38,11 +39,16 @@ export function Breadcrumb() {
             </Link>
           </li>
           {pathSegments.map((segment, index) => {
-            const href = `/${pathSegments.slice(0, index + 1).join("/")}`
+            let href = `/${pathSegments.slice(0, index + 1).join("/")}`
+            
+            if (href === "/product") {
+              href = "/products"
+            }
+
             const isLast = index === pathSegments.length - 1
 
             return (
-              <li key={href} className="flex items-center space-x-2.5">
+              <li key={index} className="flex items-center space-x-2.5">
                 <ChevronRight className="w-3.5 h-3.5 text-muted-foreground" />
                 {isLast ? (
                   <span className="text-primary" aria-current="page">

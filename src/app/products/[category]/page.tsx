@@ -13,7 +13,8 @@ export default async function CategoryPage({ params }: { params: Promise<{ categ
     include: {
       products: {
         where: { active: true },
-        orderBy: { order: 'asc' }
+        orderBy: { order: 'asc' },
+        include: { images: true }
       }
     }
   })

@@ -90,18 +90,6 @@ function AnimatedCounter({ from = 0, to, duration = 2, suffix = "", prefix = "" 
  * ──────────────────────────────────────────────────────────────────────────── */
 
 export default function WhyChoosePage() {
-  // Mouse Spotlight Effect
-  const mouseX = useMotionValue(0)
-  const mouseY = useMotionValue(0)
-  const smoothX = useSpring(mouseX, { damping: 50, stiffness: 400 })
-  const smoothY = useSpring(mouseY, { damping: 50, stiffness: 400 })
-
-  const handleMouseMove = (e: React.MouseEvent) => {
-    const { clientX, clientY } = e
-    mouseX.set(clientX)
-    mouseY.set(clientY)
-  }
-
   // Timeline Scroll Animation
   const timelineRef = useRef<HTMLDivElement>(null)
   const { scrollYProgress } = useScroll({
@@ -111,31 +99,22 @@ export default function WhyChoosePage() {
   const lineHeight = useTransform(scrollYProgress, [0, 1], ["0%", "100%"])
 
   return (
-    <div 
-      onMouseMove={handleMouseMove}
-      className="relative flex flex-col items-center w-full min-h-screen pt-36 pb-32 overflow-hidden bg-background text-foreground"
-    >
+    <div className="relative flex flex-col items-center w-full min-h-screen pt-36 pb-32 overflow-hidden bg-background text-foreground">
       {/* ─── Living Background ─── */}
       <div className="fixed inset-0 pointer-events-none z-0">
         {/* Blurred Orbs */}
         <motion.div 
           animate={{ scale: [1, 1.2, 1], opacity: [0.3, 0.4, 0.3], rotate: [0, 90, 0] }}
           transition={{ duration: 20, repeat: Infinity, ease: "easeInOut" }}
-          className="absolute top-[-10%] right-[-10%] w-[800px] h-[800px] bg-primary/20 blur-[150px] rounded-full"
+          className="absolute top-[-10%] right-[-10%] w-[800px] h-[800px] bg-primary/20 blur-[150px] rounded-full transform-gpu"
         />
         <motion.div 
           animate={{ scale: [1, 1.3, 1], opacity: [0.2, 0.5, 0.2], rotate: [0, -90, 0] }}
           transition={{ duration: 25, repeat: Infinity, ease: "easeInOut", delay: 2 }}
-          className="absolute bottom-[10%] left-[-10%] w-[900px] h-[900px] bg-cyan-500/15 blur-[160px] rounded-full"
+          className="absolute bottom-[10%] left-[-10%] w-[900px] h-[900px] bg-cyan-500/15 blur-[160px] rounded-full transform-gpu"
         />
         {/* Noise Texture */}
         <div className="absolute inset-0 bg-[url('/noise.png')] opacity-[0.03] mix-blend-overlay" />
-        
-        {/* Mouse Spotlight */}
-        <motion.div 
-          className="absolute w-[600px] h-[600px] bg-primary/10 rounded-full blur-[100px] -ml-[300px] -mt-[300px]"
-          style={{ x: smoothX, y: smoothY }}
-        />
       </div>
 
       <div className="relative z-10 w-full max-w-7xl px-6 flex flex-col gap-32">

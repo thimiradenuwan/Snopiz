@@ -239,7 +239,11 @@ export default function ProfileClient({ user }: { user: UserProps }) {
               {/* Logout */}
               <div className="px-3 py-3 border-t border-border/30 mt-auto">
                 <button
-                  onClick={() => signOut({ callbackUrl: "/login" })}
+                  onClick={async () => {
+                    const { useCartStore } = await import("@/store/cartStore")
+                    useCartStore.getState().clearCart()
+                    signOut({ callbackUrl: "/login" })
+                  }}
                   className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium text-destructive hover:bg-destructive/10 transition-colors text-left"
                 >
                   <LogOut className="w-4 h-4 flex-shrink-0" />

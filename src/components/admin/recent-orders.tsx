@@ -98,7 +98,7 @@ export function RecentOrders({ orders }: { orders: Order[] }) {
                     </span>
                   </td>
                   <td className="px-4 py-4 text-right font-medium">
-                    ${order.total.toFixed(2)}
+                    LKR {order.total.toFixed(2)}
                   </td>
                 </motion.tr>
               ))}

@@ -72,7 +72,7 @@ function SortableProductRow({ product, enableDrag }: { product: any; enableDrag?
         </div>
       </TableCell>
       <TableCell>{product.category?.name}</TableCell>
-      <TableCell>${product.price.toFixed(2)}</TableCell>
+      <TableCell>LKR {product.price.toFixed(2)}</TableCell>
       <TableCell>
         {product.active ? (
           <span className="inline-flex items-center rounded-full bg-green-500/10 px-2 py-1 text-xs font-medium text-green-500 ring-1 ring-inset ring-green-500/20">

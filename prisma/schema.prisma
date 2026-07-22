@@ -86,6 +86,7 @@ model Product {
   price       Float
   featured    Boolean        @default(false)
   active      Boolean        @default(true)
+  isVpn       Boolean        @default(false)
   order       Int            @default(0)
 
   categoryId  String
@@ -151,6 +152,11 @@ model OrderItem {
 
   price     Float
   quantity  Int
+  
+  plan      String?
+  provider  String?
+  package   String?
+  duration  String?
 }
 
 model Review {
@@ -185,8 +191,36 @@ model CartItem {
   productId String
   product   Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
   quantity  Int      @default(1)
+  plan      String?
+  provider  String?
+  package   String?
+  duration  String?
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  
-  @@unique([cartId, productId])
+}
+
+model VpnProvider {
+  id          String       @id @default(cuid())
+  name        String
+  slug        String       @unique
+  active      Boolean      @default(true)
+  order       Int          @default(0)
+  packages    VpnPackage[]
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
+}
+
+model VpnPackage {
+  id            String      @id @default(cuid())
+  name          String
+  duration      String
+  priceModifier Float       @default(0)
+  active        Boolean     @default(true)
+  order         Int         @default(0)
+
+  providerId    String
+  provider      VpnProvider @relation(fields: [providerId], references: [id], onDelete: Cascade)
+
+  createdAt     DateTime    @default(now())
+  updatedAt     DateTime    @updatedAt
 }
